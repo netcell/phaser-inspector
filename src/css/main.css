@@ -1,0 +1,135 @@
+html, body {
+  font: 14px "Avenir Next"; }
+
+.phaser-inspector-panel {
+  width: 500px;
+  height: 450px;
+  min-width: 450px !important;
+  min-height: 300px !important;
+  z-index: 500;
+  padding-top: 20px;
+  border: 5px solid #1C2B36;
+  background: rgba(0, 0, 0, 0.85);
+  color: #aaa;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: stretch;
+  -ms-flex-pack: stretch;
+  justify-content: stretch; }
+  .phaser-inspector-panel .grabber {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: #1C2B36;
+    color: #FFF;
+    font-size: 18px;
+    cursor: move; }
+    .phaser-inspector-panel .grabber div {
+      position: absolute;
+      top: -4px;
+      cursor: pointer; }
+    .phaser-inspector-panel .grabber .close {
+      left: 0; }
+    .phaser-inspector-panel .grabber .toggle-detail {
+      right: 0; }
+  .phaser-inspector-panel .panel {
+    overflow: auto; }
+  .phaser-inspector-panel #details {
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+    word-wrap: break-word;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 250px; }
+  .phaser-inspector-panel #tree {
+    box-shadow: -25px 30px 24px -30px #000 inset;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    color: #bbb9ff;
+    border-right: 1px solid #222;
+    background-color: #1c2b36;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column-reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    overflow: hidden; }
+    .phaser-inspector-panel #tree .search {
+      width: 100%;
+      background-color: #dee5e7;
+      font-size: 14px;
+      color: #696969;
+      border: none;
+      outline: none;
+      padding: 5px 15px; }
+    .phaser-inspector-panel #tree .scene {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      overflow: auto; }
+      .phaser-inspector-panel #tree .scene .view .row {
+        font-weight: bold;
+        line-height: 30px;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none; }
+        .phaser-inspector-panel #tree .scene .view .row.selected {
+          background-color: #0A1925; }
+        .phaser-inspector-panel #tree .scene .view .row.parentSelected {
+          background-color: #17222B; }
+        .phaser-inspector-panel #tree .scene .view .row > div {
+          display: inline-block; }
+        .phaser-inspector-panel #tree .scene .view .row .middle div {
+          text-align: right;
+          padding-right: 5px;
+          color: #1797be;
+          display: inline-block;
+          cursor: pointer; }
+        .phaser-inspector-panel #tree .scene .view .row .middle .eye {
+          padding-right: 0px;
+          text-align: center;
+          color: #1797be;
+          width: 30px;
+          display: inline-block; }
+          .phaser-inspector-panel #tree .scene .view .row .middle .eye .fa-eye-slash {
+            color: #869fb1; }
+        .phaser-inspector-panel #tree .scene .view .row .middle .toggle {
+          padding-right: 5px;
+          width: 5px; }
+          .phaser-inspector-panel #tree .scene .view .row .middle .toggle .fa {
+            width: 100%;
+            height: 100%; }
+          .phaser-inspector-panel #tree .scene .view .row .middle .toggle .fa-circle {
+            font-size: 5px;
+            font-weight: normal; }
+        .phaser-inspector-panel #tree .scene .view .row .middle .name {
+          color: #869fb1; }
+      .phaser-inspector-panel #tree .scene .view.weak .middle {
+        font-weight: normal;
+        font-style: italic; }
+    .phaser-inspector-panel #tree .states {
+      height: 100px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative; }
+      .phaser-inspector-panel #tree .states .state {
+        padding: 5px 10px;
+        font-weight: bold;
+        color: #1797BE;
+        position: relative; }
+        .phaser-inspector-panel #tree .states .state.selected {
+          background-color: #0A1925;
+          color: #869FB1; }

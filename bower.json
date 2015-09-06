@@ -1,0 +1,35 @@
+{
+  "name": "nine-patch-phaser-plugin",
+  "version": "1.0.0",
+  "authors": [
+    "Nguyen Tuan Anh <anhnt.fami@gmail.com>"
+  ],
+  "description": "A Nine Patch Plugin for Phaser",
+  "main": "build/nine-patch-phaser-plugin.min.js",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "phaser",
+    "plugin",
+    "nine",
+    "patch",
+    "9",
+    "ninepatch",
+    "9patch",
+    "nine-patch",
+    "9-patch"
+  ],
+  "license": "MIT",
+  "homepage": "http://anhnt.ninja",
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "dat-gui": "~0.5.1",
+    "phaser": "~2.4.3"
+  }
+}

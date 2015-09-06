@@ -1,0 +1,128 @@
+html, body
+	font       : 14px "Avenir Next"
+
+.phaser-inspector-panel
+	width       : 500px
+	height      : 450px
+	min-width   : 450px!important
+	min-height  : 300px!important
+	z-index     : 500
+	padding-top : 20px
+
+	border: 5px solid #1C2B36
+
+	background : rgba(0,0,0,0.85)
+	color      : #aaa
+
+	display         : flex
+	justify-content : stretch
+
+	.grabber
+		position   : absolute
+		top        : 0
+		left       : 0
+		width      : 100%
+		height     : 20px
+		background : #1C2B36
+		color      : #FFF
+		font-size  : 18px
+		cursor     : move
+
+		div
+			position  : absolute
+			top       : -4px
+			cursor    : pointer
+
+		.close
+			left      : 0
+
+		.toggle-detail
+			right     : 0
+
+	.panel
+		overflow       : auto
+
+	#details
+		user-select    : auto
+		word-wrap      : break-word
+		display        : flex
+		flex-direction : column
+		width          : 250px
+
+	#tree
+		box-shadow       : -25px 30px 24px -30px #000 inset
+		flex             : 1
+		color            : #bbb9ff
+		border-right     : 1px solid #222
+		background-color : #1c2b36
+		display          : flex
+		flex-direction   : column-reverse
+		overflow         : hidden
+		.search
+			width            : 100%
+			background-color : #dee5e7
+			font-size        : 14px
+			color            : #696969
+			border           : none
+			outline          : none
+			padding          : 5px 15px
+		.scene
+			flex           : 1
+			overflow       : auto
+			.view
+				.row
+					font-weight : bold
+					line-height : 30px
+					white-space : nowrap
+					user-select : none
+					&.selected
+						background-color : #0A1925
+					&.parentSelected
+						background-color : #17222B
+					>div
+						display : inline-block
+					.middle
+						div
+							text-align     : right
+							padding-right  : 5px
+							color          : #1797be
+							display        : inline-block
+							cursor         : pointer
+						.eye
+							padding-right : 0px
+							text-align    : center
+							color         : #1797be
+							width         : 30px
+							display       : inline-block
+							.fa-eye-slash
+								color : #869fb1
+						.toggle
+							padding-right : 5px
+							width         : 5px
+							.fa
+								width  : 100%
+								height : 100%
+							.fa-circle
+								font-size   : 5px
+								font-weight : normal
+						.name
+							color : #869fb1
+						.type
+						.children
+				&.weak
+					.middle
+						font-weight: normal;
+						font-style: italic;
+		.states
+			height     : 100px
+			overflow-x : hidden
+			overflow-y : auto
+			position   : relative
+			.state
+				padding     : 5px 10px
+				font-weight : bold
+				color       : #1797BE
+				position    : relative
+				&.selected
+					background-color : #0A1925
+					color            : #869FB1
