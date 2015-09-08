@@ -1,10 +1,11 @@
+var _ = require('lodash');
 export default class TreeCtrl {
 	constructor($scope, gameManager, game, onUpdate){
 		this.$scope      = $scope;
 		this.gameManager = gameManager;
 		this.game        = game;
-
-		onUpdate.add($scope.$apply, $scope);
+		var apply = _.debounce(() => $scope.$apply());
+		onUpdate.add(apply);
 
 		this.registerStateScrollUpdate();
 		this.registerDrawBounds();
