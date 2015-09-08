@@ -5,10 +5,10 @@ export default class ViewCtrl extends DisplayObject {
 		super($scope.obj, gameManager);
 		var update = _.throttle(() => {
 			$timeout(() => {
-				var width = Math.max.apply(Math, $('.middle').map(function(){
+				var width = Math.max.apply(Math, $('#tree .middle').map(function(){
 					return $(this).width();
 				}).get());
-				$('.row').width(Math.max(width + this.childLevel * 20, $('#tree').width()));
+				$('#tree .row').width(Math.max(width + this.childLevel * 20, $('#tree').width()));
 			})
 		}, 500);
 		$('.row').click(update)
