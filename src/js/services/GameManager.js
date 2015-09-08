@@ -4,7 +4,10 @@ var DisplayObject = require('../classes/DisplayObject');
 /** Return true if childObj has name/type match the search term */
 function match(childObj, term){
 	if (!term) return false;
-	return childObj.name.match(term) || childObj.type.match(term);
+	var {name, type} = childObj;
+	if (_.isFunction(name.match) && name.match(term)) return true;
+	if (_.isFunction(type.match) && type.match(term)) return true;
+	return false;
 }
 
 export default class GameManager {
