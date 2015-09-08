@@ -1,3 +1,4 @@
+var _ = require('lodash');
 /** Wrapping Phaser Object for external functionalities  */
 export default class DisplayObject {
 	constructor(obj, gameManager){
@@ -46,58 +47,61 @@ export default class DisplayObject {
 	 * Or the specified name (if any, probably not, sadly)
 	 */
 	get name(){
-		var obj   = this.obj;
+		var obj = this.obj;
+		if (_.isString(obj.text)) return obj.text;
+		if (this._name) return this._name;
 		var state = this.gameManager.game.state;
 		/** Search in current state */
 		var name = find(state.states[state.current], obj);
-		if (name) return name;
+		if (name) this._name = name;
 		else {
 			/** Recursively search in parent and parent of parent */
 			name = this.find(obj.parent, obj);
-			if (name) return name;
-			else if (obj.text) return obj.text;
-			else if (obj.name) return obj.name;
-			else return '';
+			if (name) this._name = name;
+			else if (_.isString(obj.name)) this._name = obj.name;
+			else this._name = '';
 		}
+		return this._name;
 	}
 	/** THE CLASS OF THE OBJECT */
 	/** Get the class type of the current object */
 	get type() {
+		if (this._type) return this._type;
 		var node = this.obj;
 		/** Either the constructor name */
-		if (node.constructor.name) return node.constructor.name;
+		if (node.constructor.name) return this._type = node.constructor.name;
 		/** Or guessing if it's not a Phaser class */
 		if (node.type === undefined) {
-			if (node instanceof PIXI.Stage) return 'PIXI Stage';
-			else if (node instanceof PIXI.Sprite) return 'PIXI Sprite';
-			else if (node instanceof PIXI.DisplayObjectContainer) return 'PIXI DisplayObjectContainer';
-			else if (node instanceof PIXI.DisplayObject) return 'PIXI DisplayObject';
-			else return 'Unknown';
+			if (node instanceof PIXI.Stage) return this._type = 'PIXI Stage';
+			else if (node instanceof PIXI.Sprite) return this._type = 'PIXI Sprite';
+			else if (node instanceof PIXI.DisplayObjectContainer) return this._type = 'PIXI DisplayObjectContainer';
+			else if (node instanceof PIXI.DisplayObject) return this._type = 'PIXI DisplayObject';
+			else return this._type = 'Unknown';
 		/** Or checking with Phaser classes table */
 		} else {
 			switch(node.type) {
-				case Phaser.SPRITE        : return 'Sprite';
-				case Phaser.BUTTON        : return 'Button';
-				case Phaser.IMAGE         : return 'Image';
-				case Phaser.GRAPHICS      : return 'Graphics';
-				case Phaser.TEXT          : return 'Text';
-				case Phaser.TILESPRITE    : return 'Tile Sprite';
-				case Phaser.BITMAPTEXT    : return 'Bitmap Text';
-				case Phaser.GROUP         : return 'Group';
-				case Phaser.RENDERTEXTURE : return 'Render Texture';
-				case Phaser.TILEMAP       : return 'Tilemap';
-				case Phaser.TILEMAPLAYER  : return 'Tilemap Layer';
-				case Phaser.EMITTER       : return 'Emitter';
-				case Phaser.POLYGON       : return 'Polygon';
-				case Phaser.BITMAPDATA    : return 'Bitmap Data';
-				case Phaser.CANVAS_FILTER : return 'Canvas Filter';
-				case Phaser.WEBGL_FILTER  : return 'WebGL Filter';
-				case Phaser.ELLIPSE       : return 'Ellipse';
-				case Phaser.SPRITEBATCH   : return 'Sprite Batch';
-				case Phaser.RETROFONT     : return 'Retro Font';
-				case Phaser.POINTER       : return 'Pointer';
-				case Phaser.ROPE          : return 'Rope';
-				default                   : return 'Unknown';
+				case Phaser.SPRITE        : return this._type = 'Sprite';
+				case Phaser.BUTTON        : return this._type = 'Button';
+				case Phaser.IMAGE         : return this._type = 'Image';
+				case Phaser.GRAPHICS      : return this._type = 'Graphics';
+				case Phaser.TEXT          : return this._type = 'Text';
+				case Phaser.TILESPRITE    : return this._type = 'Tile Sprite';
+				case Phaser.BITMAPTEXT    : return this._type = 'Bitmap Text';
+				case Phaser.GROUP         : return this._type = 'Group';
+				case Phaser.RENDERTEXTURE : return this._type = 'Render Texture';
+				case Phaser.TILEMAP       : return this._type = 'Tilemap';
+				case Phaser.TILEMAPLAYER  : return this._type = 'Tilemap Layer';
+				case Phaser.EMITTER       : return this._type = 'Emitter';
+				case Phaser.POLYGON       : return this._type = 'Polygon';
+				case Phaser.BITMAPDATA    : return this._type = 'Bitmap Data';
+				case Phaser.CANVAS_FILTER : return this._type = 'Canvas Filter';
+				case Phaser.WEBGL_FILTER  : return this._type = 'WebGL Filter';
+				case Phaser.ELLIPSE       : return this._type = 'Ellipse';
+				case Phaser.SPRITEBATCH   : return this._type = 'Sprite Batch';
+				case Phaser.RETROFONT     : return this._type = 'Retro Font';
+				case Phaser.POINTER       : return this._type = 'Pointer';
+				case Phaser.ROPE          : return this._type = 'Rope';
+				default                   : return this._type = 'Unknown';
 			}
 		}
 	}
