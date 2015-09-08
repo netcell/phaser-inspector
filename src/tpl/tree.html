@@ -1,0 +1,18 @@
+<div class="states">
+	<div>
+		<div class="state" ng-repeat="(state, stateObj) in treeCtrl.game.state.states" ng-bind="state" ng-class="{selected : state === treeCtrl.game.state.current}" ng-click="treeCtrl.goToState(state)">
+		</div>
+	</div>
+</div>
+
+<div class="tree-control">
+	<div>Collapse All</div>
+	<div>Expand All</div>
+	<div ng-if="treeCtrl.gameManager.$inspectorTreeSelected" ng-click="treeCtrl.gameManager.$inspectorTreeSelected = null">Deselect</div>
+</div>
+
+<div class="scene">
+	<view-collection ng-if="!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()" parent="treeCtrl.game.world.children" filtered="false"></view-collection>
+	<view-collection ng-if="treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()" parent="treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren" filtered="true"></view-collection>
+</div>
+<input class="search" type="text" ng-model="treeCtrl.search" placeholder="Search Display Object">
