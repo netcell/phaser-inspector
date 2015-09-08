@@ -41,7 +41,11 @@ gulp.task('watch', function() {
 })
 
 function rebundle(bundler, debug) {
+	console.log('Start rebundling')
 	return bundler.bundle()
+	.on('error', function(err){
+		console.log(err)
+	})
 	.pipe(source('phaser-inspector.js'))
 	.pipe(gulp.dest('./build'))
 	.on('end', function(){
