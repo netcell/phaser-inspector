@@ -1,11 +1,14 @@
 window.$           = require('jquery');
 
-var GameManager    = require('./js/services/GameManager');
-var ViewCtrl       = require('./js/controllers/ViewCtrl');
-var TreeCtrl       = require('./js/controllers/TreeCtrl');
-var interaction    = require('./js/directives/interaction');
-var view           = require('./js/directives/view');
-var viewCollection = require('./js/directives/viewCollection');
+var GameManager            = require('./js/services/GameManager');
+var ViewCtrl               = require('./js/controllers/ViewCtrl');
+var DetailCtrl             = require('./js/controllers/DetailCtrl');
+var TreeCtrl               = require('./js/controllers/TreeCtrl');
+var interaction            = require('./js/directives/interaction');
+var phaserInspectorTree    = require('./js/directives/phaserInspectorTree');
+var phaserInspectorDetails = require('./js/directives/phaserInspectorDetails');
+var view                   = require('./js/directives/view');
+var viewCollection         = require('./js/directives/viewCollection');
 
 var appTpl      = require('./tpl/app.html');
 var main        = require('./css/main.css');
@@ -35,8 +38,11 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		.factory('onUpdate', () => this.onUpdate)
 		.controller('TreeCtrl', TreeCtrl)
 		.controller('ViewCtrl', ViewCtrl)
+		.controller('DetailCtrl', DetailCtrl)
 		.factory('gameManager', ($timeout) => new GameManager($timeout, this.game))
 		.directive('phaserInspectorPanel', interaction)
+		.directive('phaserInspectorTree', phaserInspectorTree)
+		.directive('phaserInspectorDetails', phaserInspectorDetails)
 		.directive('view', view)
 		.directive('viewCollection', viewCollection);
 	}
