@@ -13,6 +13,7 @@ var viewCollection         = require('./js/directives/viewCollection');
 var appTpl      = require('./tpl/app.html');
 var main        = require('./css/main.css');
 var fontAwesome = require('./css/font-awesome.css');
+// var tooltip     = require('../node_modules/pg-ng-tooltip/dest/css/pg-ng-tooltip.min.css')
 
 Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 	constructor() {
@@ -27,8 +28,9 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		 * TODO: Figure out why
 		 */
 		window.angular = require('angular');
-		require('angular-bindonce')
-		var ngstorage  = require('ngstorage');
+		require('../node_modules/pg-ng-tooltip/dest/js/pg-ng-tooltip.js');
+		require('angular-bindonce');
+		require('ngstorage');
 		/** Bootstrap app */
 		$('html').attr('data-ng-app', 'app');
 		$('body').append(appTpl);

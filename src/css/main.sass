@@ -1,6 +1,32 @@
 html, body
 	font       : 14px "Avenir Next"
 
+$pg-tooltip-background : #1C2B36
+
+.tooltip
+
+	$_trns: 125ms ease-out
+	pointer-events   : none
+	position         : absolute
+	z-index          : 9999999999
+	top              :-9999px
+	left             :-9999px
+	opacity          :0
+	padding          : 0 12px
+	margin           : -12px 0 0 6px
+	border-radius    : 7px
+	border           : 2px solid #869FB1
+	color            : #fff
+	background-color : rgba($pg-tooltip-background, 0.95)
+	transform        : scale(0.925,0.925)
+	transition       : opacity $_trns, transform $_trns
+	&, *
+		white-space : nowrap
+
+	&.showing
+		opacity   : 0.95
+		transform : translate(0, -40px) scale(1,1)
+
 .phaser-inspector-panel
 	width       : 500px
 	height      : 450px
