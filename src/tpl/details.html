@@ -9,7 +9,7 @@
      ng-click="detailCtrl.killRevive()"
      ng-if="cache.kill"
     >
-        Kill
+        {{ cache.alive ? 'Kill' : 'Revive' }}
     </div>
     <div class="button"
      ng-class="{info : cache.visible, deactive : !cache.visible}"
@@ -33,19 +33,19 @@
     </div>
     <div class="row">
         <div class="label pl1">Children</div>
-        <div class="detail" ng-bind="cache.children"></div>
+        <div class="detail" ng-bind="cache.noChildren"></div>
     </div>
     <div class="row">
         <div class="label pl1">Alive</div>
-        <div class="detail" ng-bind="cache.alive"></div>
+        <div class="detail" ng-bind="cache.noAlive"></div>
     </div>
     <div class="row">
         <div class="label pl1">Nested</div>
-        <div class="detail" ng-bind="cache.nested"></div>
+        <div class="detail" ng-bind="cache.noNested"></div>
     </div>
     <div class="row">
         <div class="label pl1">Nested alive</div>
-        <div class="detail" ng-bind="cache.nestedAlive"></div>
+        <div class="detail" ng-bind="cache.noNestedAlive"></div>
     </div>
 </div>
 <div class="section">
@@ -103,9 +103,12 @@
     </div>
 </div>
 
-<div ng-style="{
-    background:'url('+cache.img.url+')',
-    height: cache.img.width+'px',
-    width: cache.img.height+'px',
-    'background-position': (-cache.img.x) + 'px ' + (-cache.img.y) + 'px'
-}">
+<div class="section" ng-if="cache.img.url">
+    <div class="row header">Frame</div>
+    <div class="frame-img" ng-style="{
+        background            :'url('+cache.img.url+')',
+        width                 : cache.img.width+'px',
+        height                : cache.img.height+'px',
+        'background-position' : (-cache.img.x) + 'px ' + (-cache.img.y) + 'px'
+    }"></div>
+</div>

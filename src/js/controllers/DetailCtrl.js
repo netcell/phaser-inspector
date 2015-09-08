@@ -77,10 +77,10 @@ export default class DetailCtrl {
 		}
 
 		var children      = realObj.children;
-		cache.children    = children.length;
-		cache.alive       = children.filter(child => child.alive).length;
-		cache.nested      = getChildrenOf(realObj);
-		cache.nestedAlive = getAliveChildrenOf(realObj);
+		cache.noChildren    = children.length;
+		cache.noAlive       = children.filter(child => child.alive).length;
+		cache.noNested      = getChildrenOf(realObj);
+		cache.noNestedAlive = getAliveChildrenOf(realObj);
 
 		cache.update(realObj);
 	}
