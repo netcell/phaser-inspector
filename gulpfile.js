@@ -1,6 +1,7 @@
 var gulp         = require('gulp');
 var clean        = require('gulp-clean');
 var browserify   = require('browserify');
+var watchify     = require('watchify');
 var source       = require('vinyl-source-stream');
 var babelify     = require('babelify');
 var runSequence  = require('run-sequence');
@@ -9,6 +10,15 @@ var sass         = require('gulp-sass');
 var cssify       = require('cssify');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber      = require('gulp-plumber');
+var uglify       = require('gulp-uglify');
+var rename       = require('gulp-rename');
+
+gulp.task('minify', function() {
+	return gulp.src('./build/phaser-inspector.js')
+	.pipe(rename('phaser-inspector.min.js'))
+	.pipe(uglify({ mangle: false }))
+	.pipe(gulp.dest('./build'));
+});
 
 gulp.task('css', function () {
 	return gulp.src('./src/css/**/*.sass', { base: './src/css'})
@@ -26,14 +36,32 @@ gulp.task('copy:example', function() {
 	.pipe(gulp.dest('./example/phaser-inspector'));
 });
 
+gulp.task('watch', function() {
+	gulp.watch(['./src/css/**/*.sass'], ['css']);
+})
+
+function rebundle(bundler, debug) {
+	return bundler.bundle()
+	.pipe(source('phaser-inspector.js'))
+	.pipe(gulp.dest('./build'))
+	.on('end', function(){
+		debug && runSequence('copy:example', function(){
+			console.log('REBUNDLED');
+		})
+	});
+}
+
 function bundle(debug){
-	var bundler = browserify('./src/index.js', { debug : debug });
+	watchify.args.debug = debug;
+	var bundler = browserify('./src/index.js', watchify.args);
+	debug && ( bundler = watchify(bundler) );
 	bundler.transform(stringify({ extensions: ['.html'] }));
 	bundler.transform(cssify);
 	bundler.transform( babelify.configure({ ignore : 'node_modules' }) );
-	return bundler.bundle()
-	.pipe(source('phaser-inspector.js'))
-	.pipe(gulp.dest('./build'));
+	debug && bundler.on('update', function(){
+		rebundle(bundler, debug);
+	});
+	return rebundle(bundler, debug);
 }
 
 gulp.task('browserify', function() {
@@ -49,9 +77,9 @@ gulp.task('clean', function () {
 });
 
 gulp.task('default', function(cb) {
-	runSequence('css', 'clean', 'browserify', 'copy:example', cb);
+	runSequence('css', 'clean', 'browserify', 'minify', 'copy:example', cb);
 });
 
 gulp.task('debug', function(cb) {
-	runSequence('css', 'clean', 'browserify:debug', 'copy:example', cb);
+	runSequence('watch', 'css', 'clean', 'browserify:debug', cb);
 });
