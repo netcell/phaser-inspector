@@ -1,0 +1,111 @@
+<div id="header" ng-if="!detailCtrl.isWorld">
+    <div class="button danger"
+     ng-click="detailCtrl.destroy()"
+    >
+        Destroy
+    </div>
+    <div class="button"
+     ng-class="{warn: cache.alive, success: !cache.alive}"
+     ng-click="detailCtrl.killRevive()"
+     ng-if="cache.kill"
+    >
+        Kill
+    </div>
+    <div class="button"
+     ng-class="{info : cache.visible, deactive : !cache.visible}"
+     ng-click="detailCtrl.showHide()"
+     ng-if="cache.alive || !cache.kill"
+    >
+        <i class="fa"
+         ng-class="{'fa-eye': cache.visible, 'fa-eye-slash': !cache.visible}"
+        ></i>
+    </div>
+    <div class="button primary"
+     ng-click="detailCtrl.deselect()"
+    >
+        <i class="fa fa-ban"></i>
+    </div>
+</div>
+<div class="info">
+    <div class="row">
+        <div class="label pl1">Class</div>
+        <div class="detail" ng-bind="cache.className"></div>
+    </div>
+    <div class="row">
+        <div class="label pl1">Children</div>
+        <div class="detail" ng-bind="cache.children"></div>
+    </div>
+    <div class="row">
+        <div class="label pl1">Alive</div>
+        <div class="detail" ng-bind="cache.alive"></div>
+    </div>
+    <div class="row">
+        <div class="label pl1">Nested</div>
+        <div class="detail" ng-bind="cache.nested"></div>
+    </div>
+    <div class="row">
+        <div class="label pl1">Nested alive</div>
+        <div class="detail" ng-bind="cache.nestedAlive"></div>
+    </div>
+</div>
+<div class="section">
+    <div class="row header">Position</div>
+    <div class="row">
+        <div class="label pl2">x</div>
+        <input class="detail f8 pl2" type="number" ng-model="cache.position.x"/>
+        <div class="label pl2">y</div>
+        <input class="detail f8 pl2" type="number" ng-model="cache.position.y"/>
+    </div>
+</div>
+<div class="section">
+    <div class="row header">World Position</div>
+    <div class="row">
+        <div class="label pl2">x</div>
+        <input class="detail f8" type="number" ng-model="cache.world.x"/>
+        <div class="label pl2">y</div>
+        <input class="detail f8" type="number" ng-model="cache.world.y"/>
+    </div>
+</div>
+<div class="section">
+    <div class="row header">Size</div>
+    <div class="row">
+        <div class="label f4 pl2">width</div>
+        <input class="detail f5" type="number" ng-model="cache.size.x"/>
+        <div class="label f5 pl2">height</div>
+        <input class="detail f5" type="number" ng-model="cache.size.y"/>
+    </div>
+</div>
+<div class="section" ng-if="cache.hasTargetSize">
+    <div class="row header">Target size</div>
+    <div class="row">
+        <div class="label f4 pl2">width</div>
+        <input class="detail f5" type="number" ng-model="cache.targetSize.x"/>
+        <div class="label f5 pl2">height</div>
+        <input class="detail f5" type="number" ng-model="cache.targetSize.y"/>
+    </div>
+</div>
+<div class="section">
+    <div class="row header">Bounds</div>
+    <div class="row">
+        <div class="label f4 pl2">width</div>
+        <input class="detail f5" type="number" ng-model="cache.bounds.x"/>
+        <div class="label f5 pl2">height</div>
+        <input class="detail f5" type="number" ng-model="cache.bounds.y"/>
+    </div>
+</div>
+<div class="section">
+    <div class="row header">Scale</div>
+    <div class="row">
+        <div class="label pl2">x</div>
+        <input class="detail f8" type="number" ng-model="cache.scale.x"/>
+        <div class="label pl2">y</div>
+        <input class="detail f8" type="number" ng-model="cache.scale.y"/>
+    </div>
+</div>
+
+<div ng-style="{
+    background:'url('+cache.img.url+')',
+    height: cache.img.width+'px',
+    width: cache.img.height+'px',
+    'background-position': (-cache.img.x) + 'px ' + (-cache.img.y) + 'px'
+}">

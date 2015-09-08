@@ -6,53 +6,6 @@
 
 	<div id="tree" phaser-inspector-tree class="panel"></div>
 
-		<div class="scene">
-			<view-collection ng-if="!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()" parent="treeCtrl.game.world.children" filtered="false"></view-collection>
-			<view-collection ng-if="treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()" parent="treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren" filtered="true"></view-collection>
-		</div>
-		<input class="search" type="text" ng-model="treeCtrl.search" placeholder="Search Display Object">
-	</div>
-	<div id="details" class="panel">
-		<div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div><div>Name</div>
-		<div>Position</div>
-		<div>
-			<div>x <input type="number"/></div>
-			<div>y <input type="number"/></div>
-		</div>
+	<div id="details" phaser-inspector-details class="panel">
 	</div>
 </div>
