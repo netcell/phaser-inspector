@@ -39,7 +39,7 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		.directive('view', view)
 		.directive('viewCollection', viewCollection);
 	}
-	update() {
+	render() {
 		this.onUpdate && this.onUpdate.dispatch();
 	}
 }
