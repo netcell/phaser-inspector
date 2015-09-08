@@ -1,1 +1,1 @@
-export default angular.module('app', ['ngStorage']);
+export default angular.module('app', ['ngStorage', 'pasvaz.bindonce']);

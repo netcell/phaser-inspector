@@ -24,6 +24,7 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		 * TODO: Figure out why
 		 */
 		window.angular = require('angular');
+		require('angular-bindonce')
 		var ngstorage  = require('ngstorage');
 		/** Bootstrap app */
 		$('html').attr('data-ng-app', 'app');
