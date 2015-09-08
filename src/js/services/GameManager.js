@@ -18,7 +18,20 @@ export default class GameManager {
 		this.filteredWorld = { children: [] };
 		this.filterTimer   = null;
 
+		this.$render = true;
+
 		this.$inspectorTreeSelected = null;
+	}
+	collapseAll(){
+		this.$inspectorTreeSelected = null;
+		this.collapse(game.world);
+	}
+	collapse(parent){
+		parent.children
+		.map(child => {
+			child.$inspectorTreeExpanded = false;
+			this.collapse(child);
+		});
 	}
 	filter(term){
 		/** Populate this.filteredWorld with filtered version of the world. Dah! */

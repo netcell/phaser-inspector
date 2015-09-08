@@ -45,6 +45,7 @@ export default class TreeCtrl {
 			var _render = render;
 			state.render = function(){
 				_render.apply(this, arguments);
+				if (!gameManager.$render) return;
 				var obj = gameManager.$inspectorTreeSelected;
 				if (!obj || !obj.getBounds) return;
 				var bounds = obj.getBounds();

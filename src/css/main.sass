@@ -17,6 +17,29 @@ html, body
 	display         : flex
 	justify-content : stretch
 
+	.button
+		cursor        : pointer
+		display       : inline-block
+		padding       : 0 5px
+		margin-left   : 5px
+		height        : 24px
+		text-align    : center
+		line-height   : 24px
+		color         : #fff
+		border-radius : 8px
+		&.info
+			background : #1797be
+		&.primary
+			background : #6E2E92
+		&.warn
+			background : #AF8F0A
+		&.danger
+			background : #A21111
+		&.success
+			background : #11A218
+		&.deactive
+			background : #869FB1
+
 	.grabber
 		position   : absolute
 		top        : 0
@@ -43,11 +66,51 @@ html, body
 		overflow       : auto
 
 	#details
-		user-select    : auto
-		word-wrap      : break-word
-		display        : flex
-		flex-direction : column
+		overflow-x     : hidden
 		width          : 250px
+
+		>div
+			margin-top : 10px
+
+		#header
+			user-select : none
+			margin-left : 10px
+
+		.row
+			display         : flex
+			justify-content : stretch
+			line-height     : 23px
+			border-bottom   : 1px solid #222
+
+			&.header
+				border-bottom : none
+				padding-left  : 5px
+
+			>div
+				padding-left  : 10px
+
+			.label
+				flex       : 2
+				background : #1c2b36
+				color      : #ccc
+
+			.detail
+				flex  : 3
+				color : #fff
+
+			input
+				background         : none
+				border             : none
+				outline            : none
+				-webkit-appearance : none
+				padding-left       : 10px
+
+			input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+				-webkit-appearance : none
+				margin             : 0
+
+		.frame-img
+			margin : 0 auto
 
 	#tree
 		box-shadow       : -25px 30px 24px -30px #000 inset
@@ -111,8 +174,11 @@ html, body
 						.children
 				&.weak
 					.middle
-						font-weight: normal;
-						font-style: italic;
+						font-weight: normal
+						font-style: italic
+		.tree-control
+			padding          : 5px 0
+			background-color : #DEE5E7
 		.states
 			height     : 100px
 			overflow-x : hidden
@@ -126,3 +192,11 @@ html, body
 				&.selected
 					background-color : #0A1925
 					color            : #869FB1
+
+@for $i from 1 through 12
+	.f#{$i}
+		flex : $i!important
+
+@for $j from 1 through 5
+	.pl#{$j}
+		padding-left : 5px * $j!important

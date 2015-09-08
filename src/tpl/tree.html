@@ -6,9 +6,22 @@
 </div>
 
 <div class="tree-control">
-	<div>Collapse All</div>
-	<div>Expand All</div>
-	<div ng-if="treeCtrl.gameManager.$inspectorTreeSelected" ng-click="treeCtrl.gameManager.$inspectorTreeSelected = null">Deselect</div>
+    <div class="button info"
+     tooltip-trigger tooltip-text="Collapse All"
+     ng-click="treeCtrl.gameManager.collapseAll()"
+    >
+        <i class="fa fa-compress"></i>
+    </div>
+    <div class="button"
+     ng-class="{
+		warn     : treeCtrl.gameManager.$render,
+		deactive : !treeCtrl.gameManager.$render
+     }"
+     tooltip-trigger tooltip-text="Toggle Box Render"
+     ng-click="treeCtrl.gameManager.$render = !treeCtrl.gameManager.$render"
+    >
+        <i class="fa fa-paint-brush"></i>
+    </div>
 </div>
 
 <div class="scene">
