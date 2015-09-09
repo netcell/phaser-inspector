@@ -20,6 +20,13 @@ export default class GameManager {
 
 		this.$render = true;
 
+		var self = this;
+		Object.defineProperty(window, '$inspectorTreeSelected', {
+			get: function(){
+				return self.$inspectorTreeSelected;
+			}
+		})
+
 		this.$inspectorTreeSelected = null;
 	}
 	collapseAll(){
