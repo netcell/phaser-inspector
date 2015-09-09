@@ -1,47 +1,58 @@
-# Nine Patch Phaser Plugin
+# Phaser Inspector Plugin
 
-Nine Patch Phaser Plugin allows you to use [nine patch images](https://github.com/chrislondon/9-Patch-Image-for-Websites/wiki/What-Are-9-Patch-Images) in the HTML game framework [Phaser](http://phaser.io).
+**Phaser Inspector Plugin** allows you to inspect your (or someone else) [Phaser](http://phaser.io) game.
 
-This is not technically a Phaser Plugin. It provides two methods in `game.cache` to generate nine patch textures and a `Phaser.NinePatchImage` class to create nine patch images from these textures.
+The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compiled with [Babel](babeljs.io) and [Browserify](http://browserify.org/), tested on Phaser 2.1.3 and Phaser 2.4.3 running on Google Chrome Version 45.0.2454.85 (64-bit) on OSX Yosemite.
 
-The plugin is written using ES6 and compiled with [Babel](babeljs.io) and [Browserify](http://browserify.org/), tested on Phaser 2.1.3 and Phaser 2.4.3.
+**Feature:**
+- Display objects tree inspection
+- Display object class guessing
+- Display object name guessing (by looking for this./name/ in parents)
+- Text as name for Phaser.Text
+- Display objects search by name and class
+- Display object destroy/kill/hide
+- Properties inspection and editting
+- Texture display for sprite/image
+- Bounds drawing (togglable)
+- States list and state change
+- Floating, reziable and draggable panel
+- Panel remember position on page reload
+- (Coming soon) Close/minize panel
+- (Coming soon) Transparent/Clickthrough panel
+- (Coming soon) Sprite/Image load Texture
+- (Coming...er...not sure when) Optimize when displaying too many display objects on the tree 
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
 
 ## Demo
 
-Check the `example` folder or try that example rightaway on [this codepen](http://codepen.io/netcell/full/XmrWod/). The example includes a [dat.gui](https://github.com/dataarts/dat.gui) control panel that you can play with.
+Check the `example` folder or try that example rightaway on ~~this codepen~~ (coming soon).
 
 ## Download
 
-The source is available for download from [latest release](https://github.com/netcell/nine-patch-phaser-plugin/releases) or by cloning the repository or download the files in `build` folder. Alternatively, you can install via:
-- [bower](http://bower.io/): `bower install --save nine-patch-phaser-plugin`
+The source is available for download from ~~[latest release](https://github.com/netcell/phaser-inspector/releases)~~ or by cloning the repository or download the files in `build` folder. Alternatively, you can install via:
+- ~~[bower](http://bower.io/): `bower install --save phaser-inspector`~~
 
 ## Usage
 
-Simply download the `nine-patch-phaser-plugin.js` or `nine-patch-phaser-plugin.min.js` script from [latest release](https://github.com/netcell/nine-patch-phaser-plugin/releases) and include it on your page after including Phaser:
+**NOTE:** I have only tested this plugin on Google Chrome so I am not sure how this would perform on other browsers. Also since this plugin is for debugging your game, you should not expect to use it on your mobile devices, meaning remove it (or conditionally not loading it) when deploying to mobile devices.
+
+Simply download the `phaser-inspector.js` or `phaser-inspector.min.js` script from [latest release](https://github.com/netcell/phaser-inspector/releases) and include it on your page after including Phaser:
 
 ```html
 <script src="phaser.js"></script>
-<script src="nine-patch-phaser-plugin.js"></script>
+<script src="phaser-inspector.js"></script>
 ```
 
-In the `create` method in your preloading states (to make sure the image/spritesheet/atlas is loaded), use `game.cache.addNinePatch` method to create the nine patch textures:
+In the `create` method in your boot state:
 ```javascript
-game.cache.addNinePatch(name, key, frame, left, right, top, bottom);
+game.plugins.add(Phaser.Plugin.Inspector);
 ```
-- `name` is the reference key that would be used later to get the nine patch textures
-- `key` is a key string of the image/spritesheet/atlas loaded
-- `frame` is the optional index of the frame if the nine patch image is on a spritesheet or atlas, can be either string or number
-- `left`, `right`, `top`, `bottom` are the left most, right most, top most and bottom most points of the center patch in the nine patch image.
 
-After that, in your game, you can create a nine patch image as follow:
+Alternatively, when running a game in the browser, you can inject the plugin in the developer console as follow:
 ```javascript
-var image = new Phaser.NinePatchImage(game, x, y, name);
+var script = document.createElement('script'); script.src = "https://cdn.rawgit.com/netcell/phaser-inspector/master/build/phaser-inspector.min.js"; document.getElementsByTagName('head')[0].appendChild(script); function phaserInspectorInject(){ if (Phaser.Plugin.Inspector) Phaser.GAMES[0].plugins.add(Phaser.Plugin.Inspector); else setTimeout(phaserInspectorInject); } setTimeout(phaserInspectorInject);
 ```
-with `name` is the reference key you specified before.
-
-To change the measures of the NinePatchImage, change the `targetWidth` and `targetHeight` properties. Also, remember that since Phaser.NinePatchImage actually extends Phaser.Image, so you can do anything that you can do on a Phaser.Image instance with a Phaser.NinePatchImage instance. However, in some cases, like with `anchor`, you have to run the method `UpdateImageSizes` for the NinePatchImage to be displayed correctly.
 
 Check the example in `example` folder to see it in action :)
 
