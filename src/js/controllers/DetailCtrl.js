@@ -61,8 +61,8 @@ export default class DetailCtrl {
 		var img = cache.img = {};
 		var texture = realObj.texture;
 		if ( texture && texture.baseTexture ) {
-			img.url    = text.baseTexture.source.src;
-			var frame  = text.frame;
+			img.url    = texture.baseTexture.source.src;
+			var frame  = texture.frame;
 			img.width  = frame.width;
 			img.height = frame.height;
 			img.x      = frame.x;
