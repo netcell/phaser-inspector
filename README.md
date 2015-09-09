@@ -21,7 +21,7 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - Panel **remember** position on page reload
 - **Close/minimize** panel
  
-**Upcoming features:
+**Upcoming features:**
 - **Transparent/Clickthrough** panel
 - Sprite/Image **load Texture**
 - **Optimize** when displaying too many display objects on the tree 
