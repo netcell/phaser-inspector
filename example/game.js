@@ -14,17 +14,5 @@ var game = new Phaser.Game(600, 400, Phaser.CANVAS, 'game', {
 		/** Set anchor for image - [NEEDS MANUAL UPDATE] */
 			image.anchor.setTo(0.5, 0.5);
 			image.UpdateImageSizes();
-		/** [NOT IMPORTANT] Dat.Gui Controller */
-		var gui = new dat.GUI();
-		var position = gui.addFolder('position');
-			position.add(image, 'x').step(1);
-			position.add(image, 'y').step(1);
-		var measures = gui.addFolder('measures');
-			measures.add(image, 'targetWidth').step(1);
-			measures.add(image, 'targetHeight').step(1);
-		var anchor = gui.addFolder('anchor');
-			anchor.add(image.anchor, 'x').step(0.01);
-			anchor.add(image.anchor, 'y').step(0.01);
-			gui.add(image, 'UpdateImageSizes');
 	}
 })

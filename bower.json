@@ -29,7 +29,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "dat-gui": "~0.5.1",
+    "nine-patch-phaser-plugin": "*",
     "phaser": "~2.4.3"
   }
 }
