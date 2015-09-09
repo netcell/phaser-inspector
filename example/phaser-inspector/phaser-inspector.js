@@ -59085,7 +59085,6 @@ window.$ = require('jquery');
 
 var GameManager = require('./js/services/GameManager');
 var ViewCtrl = require('./js/controllers/ViewCtrl');
-var PanelCtrl = require('./js/controllers/PanelCtrl');
 var DetailCtrl = require('./js/controllers/DetailCtrl');
 var TreeCtrl = require('./js/controllers/TreeCtrl');
 var interaction = require('./js/directives/interaction');
@@ -59129,7 +59128,7 @@ Phaser.Plugin.Inspector = (function (_Phaser$Plugin) {
 			return _this.game;
 		}).factory('onUpdate', function () {
 			return _this.onUpdate;
-		}).controller('TreeCtrl', TreeCtrl).controller('PanelCtrl', PanelCtrl).controller('ViewCtrl', ViewCtrl).controller('DetailCtrl', DetailCtrl).factory('gameManager', function ($timeout) {
+		}).controller('TreeCtrl', TreeCtrl).controller('ViewCtrl', ViewCtrl).controller('DetailCtrl', DetailCtrl).factory('gameManager', function ($timeout) {
 			return new GameManager($timeout, _this.game);
 		}).directive('phaserInspectorPanel', interaction).directive('phaserInspectorTree', phaserInspectorTree).directive('phaserInspectorDetails', phaserInspectorDetails).directive('view', view).directive('viewCollection', viewCollection);
 	}
@@ -59144,7 +59143,7 @@ Phaser.Plugin.Inspector = (function (_Phaser$Plugin) {
 	return Inspector;
 })(Phaser.Plugin);
 
-},{"../node_modules/pg-ng-tooltip/dest/js/pg-ng-tooltip.js":17,"./css/font-awesome.css":18,"./css/main.css":19,"./js/app":21,"./js/controllers/DetailCtrl":24,"./js/controllers/PanelCtrl":25,"./js/controllers/TreeCtrl":26,"./js/controllers/ViewCtrl":27,"./js/directives/interaction":28,"./js/directives/phaserInspectorDetails":29,"./js/directives/phaserInspectorTree":30,"./js/directives/view":31,"./js/directives/viewCollection":32,"./js/services/GameManager":33,"./tpl/app.html":34,"angular":3,"angular-bindonce":1,"jquery":14,"ngstorage":16}],21:[function(require,module,exports){
+},{"../node_modules/pg-ng-tooltip/dest/js/pg-ng-tooltip.js":17,"./css/font-awesome.css":18,"./css/main.css":19,"./js/app":21,"./js/controllers/DetailCtrl":24,"./js/controllers/TreeCtrl":25,"./js/controllers/ViewCtrl":26,"./js/directives/interaction":27,"./js/directives/phaserInspectorDetails":28,"./js/directives/phaserInspectorTree":29,"./js/directives/view":30,"./js/directives/viewCollection":31,"./js/services/GameManager":32,"./tpl/app.html":33,"angular":3,"angular-bindonce":1,"jquery":14,"ngstorage":16}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59594,22 +59593,6 @@ function getAliveChildrenOf(obj) {
 module.exports = exports['default'];
 
 },{"../classes/DisplayObject":22,"../classes/Vector":23,"lodash":15}],25:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var PanelCtrl = function PanelCtrl($scope) {
-	_classCallCheck(this, PanelCtrl);
-};
-
-exports["default"] = PanelCtrl;
-module.exports = exports["default"];
-
-},{}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59718,7 +59701,7 @@ var TreeCtrl = (function () {
 exports['default'] = TreeCtrl;
 module.exports = exports['default'];
 
-},{"lodash":15}],27:[function(require,module,exports){
+},{"lodash":15}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59769,7 +59752,7 @@ var ViewCtrl = (function (_DisplayObject) {
 exports['default'] = ViewCtrl;
 module.exports = exports['default'];
 
-},{"../classes/DisplayObject":22,"lodash":15}],28:[function(require,module,exports){
+},{"../classes/DisplayObject":22,"lodash":15}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59881,7 +59864,7 @@ exports['default'] = function ($localStorage, $timeout) {
 
 module.exports = exports['default'];
 
-},{"draggabilly":5,"interact.js":13}],29:[function(require,module,exports){
+},{"draggabilly":5,"interact.js":13}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59900,7 +59883,7 @@ exports['default'] = function ($compile) {
 ;
 module.exports = exports['default'];
 
-},{"../../tpl/details.html":35}],30:[function(require,module,exports){
+},{"../../tpl/details.html":34}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59919,7 +59902,7 @@ exports['default'] = function ($compile) {
 ;
 module.exports = exports['default'];
 
-},{"../../tpl/tree.html":36}],31:[function(require,module,exports){
+},{"../../tpl/tree.html":35}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59949,7 +59932,7 @@ exports['default'] = function ($compile) {
 ;
 module.exports = exports['default'];
 
-},{"../../tpl/tree/view.html":37}],32:[function(require,module,exports){
+},{"../../tpl/tree/view.html":36}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59974,7 +59957,7 @@ exports['default'] = function ($q, $compile) {
 ;
 module.exports = exports['default'];
 
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -59994,9 +59977,7 @@ function match(childObj, term) {
 	var name = childObj.name;
 	var type = childObj.type;
 
-	if (_.isFunction(name.match) && name.match(term)) return true;
-	if (_.isFunction(type.match) && type.match(term)) return true;
-	return false;
+	return name && name.toLowerCase().match(term) || type && type.toLowerCase().match(term);
 }
 
 var GameManager = (function () {
@@ -60042,6 +60023,7 @@ var GameManager = (function () {
 		value: function filter(term) {
 			var _this2 = this;
 
+			term && (term = term.toLowerCase());
 			/** Populate this.filteredWorld with filtered version of the world. Dah! */
 			var game = this.game;
 			var filteredWorld = this.filteredWorld;
@@ -60085,16 +60067,16 @@ var GameManager = (function () {
 exports['default'] = GameManager;
 module.exports = exports['default'];
 
-},{"../classes/DisplayObject":22,"lodash":15}],34:[function(require,module,exports){
+},{"../classes/DisplayObject":22,"lodash":15}],33:[function(require,module,exports){
 module.exports = "<div class=\"phaser-inspector-panel\" ng-init=\"display={}\" ng-class=\"{collapsed: display.hide}\">\n\t<div class=\"grabber\">\n\t\t<div class=\"close\" ng-click=\"display.hide = !display.hide\">\n\t\t\t<i class=\"fa\" ng-class=\"{'fa-bars': display.hide, 'fa-times-circle':!display.hide}\"></i>\n\t\t</div>\n\t</div>\n\n\t<div id=\"tree\" phaser-inspector-tree class=\"panel\" ng-if=\"!display.hide\"></div>\n\n\t<div id=\"details\" phaser-inspector-details class=\"panel\" ng-if=\"!display.hide\"></div>\n</div>\n<div class=\"tooltip\" pg-ng-tooltip></div>";
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 module.exports = "<div id=\"header\" ng-if=\"!detailCtrl.isWorld\">\n    <div class=\"button danger\"\n     ng-click=\"detailCtrl.destroy()\"\n    >\n        Destroy\n    </div>\n    <div class=\"button\"\n     ng-class=\"{warn: cache.alive, success: !cache.alive}\"\n     ng-click=\"detailCtrl.killRevive()\"\n     ng-if=\"cache.kill\"\n    >\n        {{ cache.alive ? 'Kill' : 'Revive' }}\n    </div>\n    <div class=\"button\"\n     ng-class=\"{info : cache.visible, deactive : !cache.visible}\"\n     ng-click=\"detailCtrl.showHide()\"\n     ng-if=\"cache.alive || !cache.kill\"\n    >\n        <i class=\"fa\"\n         ng-class=\"{'fa-eye': cache.visible, 'fa-eye-slash': !cache.visible}\"\n        ></i>\n    </div>\n    <div class=\"button primary\"\n     ng-click=\"detailCtrl.deselect()\"\n    >\n        <i class=\"fa fa-ban\"></i>\n    </div>\n</div>\n<div class=\"info\">\n    <div class=\"row\">\n        <div class=\"label pl1\">Class</div>\n        <div class=\"detail\" ng-bind=\"cache.className\"></div>\n    </div>\n    <div class=\"row\">\n        <div class=\"label pl1\">Children</div>\n        <div class=\"detail\" ng-bind=\"cache.noChildren\"></div>\n    </div>\n    <div class=\"row\">\n        <div class=\"label pl1\">Alive</div>\n        <div class=\"detail\" ng-bind=\"cache.noAlive\"></div>\n    </div>\n    <div class=\"row\">\n        <div class=\"label pl1\">Nested</div>\n        <div class=\"detail\" ng-bind=\"cache.noNested\"></div>\n    </div>\n    <div class=\"row\">\n        <div class=\"label pl1\">Nested alive</div>\n        <div class=\"detail\" ng-bind=\"cache.noNestedAlive\"></div>\n    </div>\n</div>\n<div class=\"section\">\n    <div class=\"row header\">Position</div>\n    <div class=\"row\">\n        <div class=\"label pl2\">x</div>\n        <input class=\"detail f8 pl2\" type=\"number\" ng-model=\"cache.position.x\"/>\n        <div class=\"label pl2\">y</div>\n        <input class=\"detail f8 pl2\" type=\"number\" ng-model=\"cache.position.y\"/>\n    </div>\n</div>\n<div class=\"section\">\n    <div class=\"row header\">World Position</div>\n    <div class=\"row\">\n        <div class=\"label pl2\">x</div>\n        <input class=\"detail f8\" type=\"number\" ng-model=\"cache.world.x\"/>\n        <div class=\"label pl2\">y</div>\n        <input class=\"detail f8\" type=\"number\" ng-model=\"cache.world.y\"/>\n    </div>\n</div>\n<div class=\"section\">\n    <div class=\"row header\">Size</div>\n    <div class=\"row\">\n        <div class=\"label f4 pl2\">width</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.size.x\"/>\n        <div class=\"label f5 pl2\">height</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.size.y\"/>\n    </div>\n</div>\n<div class=\"section\" ng-if=\"cache.hasTargetSize\">\n    <div class=\"row header\">Target size</div>\n    <div class=\"row\">\n        <div class=\"label f4 pl2\">width</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.targetSize.x\"/>\n        <div class=\"label f5 pl2\">height</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.targetSize.y\"/>\n    </div>\n</div>\n<div class=\"section\">\n    <div class=\"row header\">Bounds</div>\n    <div class=\"row\">\n        <div class=\"label f4 pl2\">width</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.bounds.x\"/>\n        <div class=\"label f5 pl2\">height</div>\n        <input class=\"detail f5\" type=\"number\" ng-model=\"cache.bounds.y\"/>\n    </div>\n</div>\n<div class=\"section\">\n    <div class=\"row header\">Scale</div>\n    <div class=\"row\">\n        <div class=\"label pl2\">x</div>\n        <input class=\"detail f8\" type=\"number\" ng-model=\"cache.scale.x\"/>\n        <div class=\"label pl2\">y</div>\n        <input class=\"detail f8\" type=\"number\" ng-model=\"cache.scale.y\"/>\n    </div>\n</div>\n\n<div class=\"section\" ng-if=\"cache.img.url\">\n    <div class=\"row header\">Frame</div>\n    <div class=\"frame-img\" ng-style=\"{\n        background            :'url('+cache.img.url+')',\n        width                 : cache.img.width+'px',\n        height                : cache.img.height+'px',\n        'background-position' : (-cache.img.x) + 'px ' + (-cache.img.y) + 'px'\n    }\"></div>\n</div>";
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = "<div class=\"states\">\n\t<div>\n\t\t<div class=\"state\" ng-repeat=\"(state, stateObj) in treeCtrl.game.state.states\" ng-bind=\"state\" ng-class=\"{selected : state === treeCtrl.game.state.current}\" ng-click=\"treeCtrl.goToState(state)\">\n\t\t</div>\n\t</div>\n</div>\n\n<div class=\"tree-control\">\n    <div class=\"button info\"\n     tooltip-trigger tooltip-text=\"Collapse All\"\n     ng-click=\"treeCtrl.gameManager.collapseAll()\"\n    >\n        <i class=\"fa fa-compress\"></i>\n    </div>\n    <div class=\"button\"\n     ng-class=\"{\n\t\twarn     : treeCtrl.gameManager.$render,\n\t\tdeactive : !treeCtrl.gameManager.$render\n     }\"\n     tooltip-trigger tooltip-text=\"Toggle Box Render\"\n     ng-click=\"treeCtrl.gameManager.$render = !treeCtrl.gameManager.$render\"\n    >\n        <i class=\"fa fa-paint-brush\"></i>\n    </div>\n</div>\n\n<div class=\"scene\">\n\t<view-collection ng-if=\"!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()\" parent=\"treeCtrl.game.world.children\" filtered=\"false\"></view-collection>\n\t<view-collection ng-if=\"treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()\" parent=\"treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren\" filtered=\"true\"></view-collection>\n</div>\n<input class=\"search\" type=\"text\" ng-model=\"treeCtrl.search\" placeholder=\"Search Display Object\">";
 
-},{}],37:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = "<div bindonce class=\"view\" ng-class=\"{weak : !obj.alive}\">\n\t<div class=\"row\" ng-class=\"{selected : viewCtrl.selected, parentSelected : viewCtrl.parentSelected}\">\n\t\t<div class=\"middle\" bo-style=\"{'padding-left' : (viewCtrl.childLevel * 20) + 'px'}\">\n\t\t\t<div class=\"eye\" ng-click=\"viewCtrl.toggle(); obj.visible = !obj.visible\">\n\t\t\t\t<i class=\"fa\" ng-class=\"{'fa-eye' : obj.visible, 'fa-eye-slash' : !obj.visible}\"></i>\n\t\t\t</div>\n\t\t\t<div ng-click=\"viewCtrl.select()\">\n\t\t\t\t<div class=\"toggle\">\n\t\t\t\t\t<i class=\"fa fa-circle\" ng-if=\"!viewCtrl.hasChildren\"></i>\n\t\t\t\t\t<i class=\"fa\" ng-if=\"viewCtrl.hasChildren\" ng-class=\"{'fa-caret-down' : viewCtrl.expanded, 'fa-caret-right' : !viewCtrl.expanded}\"></i>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"name\" bo-bind=\"viewCtrl.name\"></div>\n\t\t\t\t<div class=\"type\" bo-bind=\"viewCtrl.type\"></div>\n\t\t\t\t<div class=\"children\" ng-bind=\"viewCtrl.numberOfChildren\"></div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";
 
 },{}]},{},[20]);

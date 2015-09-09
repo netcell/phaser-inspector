@@ -18,9 +18,9 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - Floating, reziable and draggable panel
 - Panel remember position on page reload
 - Close/minize panel
+- Non-case-sensitive search
 - (Coming soon) Transparent/Clickthrough panel
 - (Coming soon) Sprite/Image load Texture
-- (Coming soon) Non-case-sensitive search
 - (Coming...er...not sure when) Optimize when displaying too many display objects on the tree 
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
@@ -52,7 +52,7 @@ game.plugins.add(Phaser.Plugin.Inspector);
 
 Alternatively, when running a game in the browser, you can inject the plugin in the developer console as follow:
 ```javascript
-var script = document.createElement('script'); script.src = "https://cdn.rawgit.com/netcell/phaser-inspector/master/build/phaser-inspector.min.js"; document.getElementsByTagName('head')[0].appendChild(script); function phaserInspectorInject(){ if (Phaser.Plugin.Inspector) Phaser.GAMES[0].plugins.add(Phaser.Plugin.Inspector); else setTimeout(phaserInspectorInject); } setTimeout(phaserInspectorInject);
+var script = document.createElement('script'); script.src = "https://rawgit.com/netcell/phaser-inspector/master/build/phaser-inspector.min.js"; document.getElementsByTagName('head')[0].appendChild(script); function phaserInspectorInject(){ if (Phaser.Plugin.Inspector) Phaser.GAMES[0].plugins.add(Phaser.Plugin.Inspector); else setTimeout(phaserInspectorInject); } setTimeout(phaserInspectorInject);
 ```
 
 Check the example in `example` folder to see it in action :)

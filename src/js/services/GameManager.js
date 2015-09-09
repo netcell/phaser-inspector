@@ -5,9 +5,7 @@ var DisplayObject = require('../classes/DisplayObject');
 function match(childObj, term){
 	if (!term) return false;
 	var {name, type} = childObj;
-	if (_.isFunction(name.match) && name.match(term)) return true;
-	if (_.isFunction(type.match) && type.match(term)) return true;
-	return false;
+	return (name && name.toLowerCase().match(term)) || (type && type.toLowerCase().match(term));
 }
 
 export default class GameManager {
@@ -41,6 +39,7 @@ export default class GameManager {
 		});
 	}
 	filter(term){
+		term && (term = term.toLowerCase());
 		/** Populate this.filteredWorld with filtered version of the world. Dah! */
 		var {game, filteredWorld, filterTimer, $timeout} = this;
 		/** Reset */
