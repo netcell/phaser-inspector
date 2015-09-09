@@ -24,7 +24,7 @@ export default class GameManager {
 	}
 	collapseAll(){
 		this.$inspectorTreeSelected = null;
-		this.collapse(game.world);
+		this.collapse(this.game.world);
 	}
 	collapse(parent){
 		parent.children

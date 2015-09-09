@@ -59997,7 +59997,7 @@ var GameManager = (function () {
 		key: 'collapseAll',
 		value: function collapseAll() {
 			this.$inspectorTreeSelected = null;
-			this.collapse(game.world);
+			this.collapse(this.game.world);
 		}
 	}, {
 		key: 'collapse',
