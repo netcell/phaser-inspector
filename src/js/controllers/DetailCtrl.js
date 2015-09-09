@@ -49,7 +49,7 @@ export default class DetailCtrl {
 	}
 
 	updateInfo(){
-		var {realObj, obj, cache} = this;
+		var {realObj, obj, cache, game} = this;
 		if (this.isWorld) cache.className = 'World';
 		else cache.className = obj.type;
 		cache.alive    = realObj.alive;
