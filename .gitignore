@@ -2,3 +2,4 @@ node_modules
 example/lib
 bower_components
 src/css/main.css
+.DS_Store
