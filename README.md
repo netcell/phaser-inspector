@@ -29,7 +29,7 @@ Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and ch
 
 ## Demo
 
-Check the `example` folder or try that example rightaway on ~~this codepen~~ (coming soon).
+Check the `example` folder (please run `bower install` before that, and serve the folder on a server/localhost) or try that example rightaway on ~~this codepen~~ (coming soon).
 
 ## Download
 
