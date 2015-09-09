@@ -43,6 +43,11 @@ export default function($localStorage, $timeout) {
 					left     : `${elX || 0}px`
 				});
 			});
+			scope.$watch(function(){
+				return scope.display.hide;
+			}, function(){
+				interact(element).resizable({ enabled : !scope.display.hide });
+			})
 			/** Enable resize */
 			interact(element).resizable({
 				edges: { left: true, right: true, bottom: true }
@@ -51,7 +56,6 @@ export default function($localStorage, $timeout) {
 				var target = event.target,
 				x = (parseFloat(target.getAttribute('data-x')) || 0),
 				y = (parseFloat(target.getAttribute('data-y')) || 0);
-
 				// update the element's style
 				target.style.width  = event.rect.width + 'px';
 				target.style.height = event.rect.height + 'px';

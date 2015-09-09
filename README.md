@@ -17,10 +17,10 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - States list and state change
 - Floating, reziable and draggable panel
 - Panel remember position on page reload
-- (Coming soon) Close/minize panel
+- Close/minize panel
 - (Coming soon) Transparent/Clickthrough panel
 - (Coming soon) Sprite/Image load Texture
-- (Coming soon) Fuzzy search
+- (Coming soon) Non-case-sensitive search
 - (Coming...er...not sure when) Optimize when displaying too many display objects on the tree 
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!

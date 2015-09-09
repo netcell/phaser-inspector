@@ -1,11 +1,12 @@
-<div class="phaser-inspector-panel">
+<div class="phaser-inspector-panel" ng-init="display={}" ng-class="{collapsed: display.hide}">
 	<div class="grabber">
-		<div class="close"><i class="fa fa-times-circle"></i></div>
+		<div class="close" ng-click="display.hide = !display.hide">
+			<i class="fa" ng-class="{'fa-bars': display.hide, 'fa-times-circle':!display.hide}"></i>
+		</div>
 	</div>
 
-	<div id="tree" phaser-inspector-tree class="panel"></div>
+	<div id="tree" phaser-inspector-tree class="panel" ng-if="!display.hide"></div>
 
-	<div id="details" phaser-inspector-details class="panel">
-	</div>
+	<div id="details" phaser-inspector-details class="panel" ng-if="!display.hide"></div>
 </div>
 <div class="tooltip" pg-ng-tooltip></div>
