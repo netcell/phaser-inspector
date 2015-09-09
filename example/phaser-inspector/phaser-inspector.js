@@ -59511,17 +59511,10 @@ var DetailCtrl = (function () {
 
 			var imageCache = game.cache._images || game.cache._cache.image;
 			var img = cache.img = {};
-			var key = realObj.key;
-			if (_.isString(key)) {
-				img.url = imageCache[key].url;
-				var frame = realObj.frame;
-				img.width = frame.width;
-				img.height = frame.height;
-				img.x = frame.x;
-				img.y = frame.y;
-			} else if (key && key.baseTexture) {
-				img.url = key.baseTexture.source.src;
-				var frame = key.frame;
+			var texture = realObj.texture;
+			if (texture && texture.baseTexture) {
+				img.url = text.baseTexture.source.src;
+				var frame = text.frame;
 				img.width = frame.width;
 				img.height = frame.height;
 				img.x = frame.x;
