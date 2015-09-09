@@ -2,6 +2,8 @@
 
 **Phaser Inspector Plugin** allows you to inspect your (or someone else) [Phaser](http://phaser.io) game.
 
+![Floating, resizable and minimizable](https://farm6.staticflickr.com/5619/21076450010_efa799bf08_o.png)![Intelligent Inspector with object tree, search and edit, state control and bounds drawing](https://farm1.staticflickr.com/730/21076450170_23796d65a4_o.png)
+
 The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compiled with [Babel](babeljs.io) and [Browserify](http://browserify.org/), tested on Phaser 2.1.3 and Phaser 2.4.3 running on Google Chrome Version 45.0.2454.85 (64-bit) on OSX Yosemite.
 
 **Feature:**
@@ -52,7 +54,7 @@ game.plugins.add(Phaser.Plugin.Inspector);
 
 Alternatively, when running a game in the browser, you can inject the plugin in the developer console as follow:
 ```javascript
-var script = document.createElement('script'); script.src = "https://rawgit.com/netcell/phaser-inspector/master/build/phaser-inspector.min.js"; document.getElementsByTagName('head')[0].appendChild(script); function phaserInspectorInject(){ if (Phaser.Plugin.Inspector) Phaser.GAMES[0].plugins.add(Phaser.Plugin.Inspector); else setTimeout(phaserInspectorInject); } setTimeout(phaserInspectorInject);
+var script = document.createElement('script'); script.src = "http://netcell.github.io/phaser-inspector/build/phaser-inspector.js"; document.getElementsByTagName('head')[0].appendChild(script); function phaserInspectorInject(){ if (Phaser.Plugin.Inspector) Phaser.GAMES[0].plugins.add(Phaser.Plugin.Inspector); else setTimeout(phaserInspectorInject); } setTimeout(phaserInspectorInject);
 ```
 
 Check the example in `example` folder to see it in action :)
