@@ -6,34 +6,35 @@
 
 The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compiled with [Babel](babeljs.io) and [Browserify](http://browserify.org/), tested on Phaser 2.1.3 and Phaser 2.4.3 running on Google Chrome Version 45.0.2454.85 (64-bit) on OSX Yosemite.
 
-**Feature:**
-- Display objects tree inspection
-- Display object class guessing
-- Display object name guessing (by looking for this./name/ in parents)
-- Text as name for Phaser.Text
-- Display objects search by name and class
-- Display object destroy/kill/hide
-- Properties inspection and editting
-- Texture display for sprite/image
-- Bounds drawing (togglable)
-- States list and state change
-- Floating, reziable and draggable panel
-- Panel remember position on page reload
-- Close/minize panel
-- Non-case-sensitive search
-- (Coming soon) Transparent/Clickthrough panel
-- (Coming soon) Sprite/Image load Texture
-- (Coming...er...not sure when) Optimize when displaying too many display objects on the tree 
+**Working features:**
+- Display objects **tree** inspection.
+- Display object **class** guessing.
+- Display object **name** guessing (by looking for `this./name/` in parents).
+- **Text** as name for Phaser.Text.
+- Display objects **non-case-sensitive search** by name and class.
+- Display object **destroy/kill/hide**.
+- **Properties** inspection and editting.
+- **Texture display** for sprite/image
+- **Bounds** drawing
+- **States** list and state change
+- **Floating**, **resizable** and **draggable** panel
+- Panel **remember** position on page reload
+- **Close/minimize** panel
+ 
+**Upcoming features:**
+- **Transparent/Clickthrough** panel
+- Sprite/Image **load Texture**
+- **Optimize** when displaying too many display objects on the tree 
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
 
 ## Demo
 
-Check the [`example`](/example) folder or try that example rightaway on ~~this codepen~~ (coming soon).
+Check the `example` folder (please run `bower install` before that, and serve the folder on a server/localhost) or try that example rightaway on [this codepen](http://codepen.io/netcell/full/gapZWG/).
 
 ## Download
 
-The source is available for download from ~~[latest release](https://github.com/netcell/phaser-inspector/releases)~~ or by cloning the repository or download the files in `build` folder. Alternatively, you can install via:
+The source is available for download from [latest release](https://github.com/netcell/phaser-inspector/releases) or by cloning the repository or download the files in `build` folder. Alternatively, you can install via:
 - ~~[bower](http://bower.io/): `bower install --save phaser-inspector`~~
 
 ## Usage

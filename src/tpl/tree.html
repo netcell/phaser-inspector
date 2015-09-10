@@ -14,13 +14,26 @@
     </div>
     <div class="button"
      ng-class="{
-		warn     : treeCtrl.gameManager.$render,
-		deactive : !treeCtrl.gameManager.$render
+        warn     : treeCtrl.gameManager.$render,
+        deactive : !treeCtrl.gameManager.$render
      }"
      tooltip-trigger tooltip-text="Toggle Box Render"
      ng-click="treeCtrl.gameManager.$render = !treeCtrl.gameManager.$render"
     >
         <i class="fa fa-paint-brush"></i>
+    </div>
+    <div class="button"
+     ng-class="{
+		success  : treeCtrl.game.paused,
+		danger   : !treeCtrl.game.paused
+     }"
+     tooltip-trigger tooltip-text="Play/Pause"
+     ng-click="treeCtrl.game.paused = !treeCtrl.game.paused"
+    >
+        <i class="fa" ng-class="{
+            'fa-play'  :  treeCtrl.game.paused,
+            'fa-pause' :  !treeCtrl.game.paused
+        }"></i>
     </div>
 </div>
 

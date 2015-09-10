@@ -4,15 +4,15 @@ var game = new Phaser.Game(600, 400, Phaser.CANVAS, 'game', {
 	},
 	create: function create() {
 		game.plugins.add(Phaser.Plugin.Inspector);
-		/** Cache the patches' textures */
-		game.cache.addNinePatch('blue_button02', 'blueSheet', 'blue_button02.png', 10, 10, 10, 20);
-		/** @type {Phaser.NinePatchImage} Create a NinePatchImage from cached textures */
-		var image = new Phaser.NinePatchImage(game, game.width/2, game.height/2, 'blue_button02');
-		/** Set the measures for image - [AUTOMATICALLY UPDATED] */
-			image.targetWidth  = 200;
-			image.targetHeight = 200;
-		/** Set anchor for image - [NEEDS MANUAL UPDATE] */
-			image.anchor.setTo(0.5, 0.5);
-			image.UpdateImageSizes();
+		this.image = game.make.sprite(0, 0, 'blueSheet', 'blue_button02.png');
+		this.image.anchor.set(0.5, 0.5);
+		this.textureRender = game.add.renderTexture(game.width, game.height);
+		this.textureRenderedSprite = game.add.sprite(0, 0, this.textureRender);
+	},
+	update: function update() {
+		var pointer = game.input.activePointer;
+		if (!pointer.position.isZero()) {
+			this.textureRender.renderXY(this.image, pointer.x, pointer.y, true);
+		}
 	}
 })

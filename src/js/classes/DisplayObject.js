@@ -30,13 +30,18 @@ export default class DisplayObject {
 	 * prop key name the obj attached to
 	 */
 	find(parent, obj){
+		console.log(parent)
 		if (parent) {
 			var keys = Object.keys(parent);
+			var foundKey = null;
 			for (var i = keys.length - 1; i >= 0; i--) {
 				var key = keys[i];
-				if (parent[key] === obj) return key;
+				if (parent[key] === obj) {
+					if (key === 'cursor') foundKey = key;
+					else return key;
+				}
 			}
-			return this.find(parent.parent, obj);
+			return foundKey || this.find(parent.parent, obj);
 		} else return false;
 	}
 	/**
@@ -52,7 +57,7 @@ export default class DisplayObject {
 		if (this._name) return this._name;
 		var state = this.gameManager.game.state;
 		/** Search in current state */
-		var name = find(state.states[state.current], obj);
+		var name = this.find(state.states[state.current], obj);
 		if (name) this._name = name;
 		else {
 			/** Recursively search in parent and parent of parent */
@@ -104,6 +109,28 @@ export default class DisplayObject {
 				default                   : return this._type = 'Unknown';
 			}
 		}
+	}
+	get img(){
+		var img = {};
+		var texture = this.obj.texture;
+		if ( texture && texture.baseTexture ) {
+			var source = texture.baseTexture.source;
+			if (source.src) img.url = source.src;
+			else if (source.toDataURL) img.url = source.toDataURL();
+			if (img.url) {
+				var frame  = texture.frame;
+				img.width  = frame.width;
+				img.height = frame.height;
+				img.x      = frame.x;
+				img.y      = frame.y;
+				img.scale  = 1;
+				var detailPanelWidth = $('.frame-img').parent().innerWidth();
+				if (frame.width > detailPanelWidth) {
+					img.scale = detailPanelWidth/frame.width;
+				}
+			}
+		}
+		return img;
 	}
 	/** SELECTION AND EXPANSION FOR VIEW */
 	get expanded(){
