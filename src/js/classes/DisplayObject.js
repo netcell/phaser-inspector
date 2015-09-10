@@ -116,7 +116,11 @@ export default class DisplayObject {
 		if ( texture && texture.baseTexture ) {
 			var source = texture.baseTexture.source;
 			if (source.src) img.url = source.src;
-			else if (source.toDataURL) img.url = source.toDataURL();
+			else if (source.toDataURL) {
+				try {
+					img.url = source.toDataURL();
+				} catch(err) {}
+			}
 			if (img.url) {
 				var frame  = texture.frame;
 				img.width  = frame.width;
