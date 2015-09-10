@@ -14,17 +14,20 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - Display objects **non-case-sensitive search** by name and class.
 - Display object **destroy/kill/hide**.
 - **Properties** inspection and editting.
-- **Texture display** for sprite/image
+- **Texture display** for sprite/image (**Not** support RenterTexture with CORS or WebGL)
 - **Bounds** drawing
 - **States** list and state change
 - **Floating**, **resizable** and **draggable** panel
 - Panel **remember** position on page reload
 - **Close/minimize** panel
+- **Play/Pause** button
  
 **Upcoming features:**
 - **Transparent/Clickthrough** panel
 - Sprite/Image **load Texture**
-- **Optimize** when displaying too many display objects on the tree 
+- **Optimize** when displaying too many display objects on the tree
+- Support CORS for **RenderTexture display** for sprite/image
+- Support **RenderTexture display** on WebGL
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
 
