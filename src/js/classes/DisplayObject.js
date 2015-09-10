@@ -113,7 +113,7 @@ export default class DisplayObject {
 	get img(){
 		var img = {};
 		var texture = this.obj.texture;
-		if ( texture && texture.baseTexture ) {
+		if ( texture && texture.baseTexture  && texture.baseTexture.source) {
 			var source = texture.baseTexture.source;
 			if (source.src) img.url = source.src;
 			else if (source.toDataURL) {
