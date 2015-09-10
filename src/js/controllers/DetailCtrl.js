@@ -50,24 +50,17 @@ export default class DetailCtrl {
 
 	updateInfo(){
 		var {realObj, obj, cache, game} = this;
+
 		if (this.isWorld) cache.className = 'World';
 		else cache.className = obj.type;
-		cache.alive    = realObj.alive;
-		cache.visible  = realObj.visible;
-		cache.kill     = realObj.kill;
+
+		cache.alive   = realObj.alive;
+		cache.visible = realObj.visible;
+		cache.kill    = realObj.kill;
+
 		cache.hasTargetSize = !_.isUndefined(realObj.targetWidth);
 
-		var imageCache = game.cache._images || game.cache._cache.image;
-		var img = cache.img = {};
-		var texture = realObj.texture;
-		if ( texture && texture.baseTexture ) {
-			img.url    = texture.baseTexture.source.src;
-			var frame  = texture.frame;
-			img.width  = frame.width;
-			img.height = frame.height;
-			img.x      = frame.x;
-			img.y      = frame.y;
-		}
+		cache.img = obj.img;
 
 		var children      = realObj.children;
 		cache.noChildren    = children.length;
