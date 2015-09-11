@@ -59325,12 +59325,10 @@ var DisplayObject = (function () {
 		get: function get() {
 			var img = {};
 			var texture = this.obj.texture;
-			if (texture && texture.baseTexture && texture.baseTexture.source) {
+			if (texture && texture.baseTexture) {
 				var source = texture.baseTexture.source;
-				if (source.src) img.url = source.src;else if (source.toDataURL) {
-					try {
-						img.url = source.toDataURL();
-					} catch (err) {}
+				if (source && source.src) img.url = source.src;else if (texture.getBase64) {
+					img.url = texture.getBase64();
 				}
 				if (img.url) {
 					var frame = texture.frame;
