@@ -4,14 +4,16 @@
 			<div class="eye" ng-click="viewCtrl.toggle(); obj.visible = !obj.visible">
 				<i class="fa" ng-class="{'fa-eye' : obj.visible, 'fa-eye-slash' : !obj.visible}"></i>
 			</div>
-			<div ng-click="viewCtrl.select()">
-				<div class="toggle">
+			<div>
+				<div class="toggle" ng-click="viewCtrl.expand()">
 					<i class="fa fa-circle" ng-if="!viewCtrl.hasChildren"></i>
 					<i class="fa" ng-if="viewCtrl.hasChildren" ng-class="{'fa-caret-down' : viewCtrl.expanded, 'fa-caret-right' : !viewCtrl.expanded}"></i>
 				</div>
-				<div class="name" bo-bind="viewCtrl.name"></div>
-				<div class="type" bo-bind="viewCtrl.type"></div>
-				<div class="children" ng-bind="viewCtrl.numberOfChildren"></div>
+				<div ng-click="viewCtrl.select()">
+					<div class="name" bo-bind="viewCtrl.name"></div>
+					<div class="type" bo-bind="viewCtrl.type"></div>
+					<div class="children" ng-bind="viewCtrl.numberOfChildren"></div>
+				</div>
 			</div>
 		</div>
 	</div>
