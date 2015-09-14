@@ -41,7 +41,7 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		.controller('TreeCtrl', TreeCtrl)
 		.controller('ViewCtrl', ViewCtrl)
 		.controller('DetailCtrl', DetailCtrl)
-		.factory('gameManager', ($timeout) => new GameManager($timeout, this.game))
+		.factory('gameManager', ($timeout) => new GameManager($timeout, this.game, this.onUpdate))
 		.directive('phaserInspectorPanel', interaction)
 		.directive('phaserInspectorTree', phaserInspectorTree)
 		.directive('phaserInspectorDetails', phaserInspectorDetails)

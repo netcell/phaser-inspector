@@ -8,10 +8,14 @@ function match(childObj, term){
 	return (name && name.toLowerCase().match(term)) || (type && type.toLowerCase().match(term));
 }
 
+var min = Math.min,
+	max = Math.max;
+
 export default class GameManager {
-	constructor($timeout, game){
+	constructor($timeout, game, onUpdate){
 		this.$timeout = $timeout;
 		this.game     = game;
+		this.onUpdate = onUpdate;
 
 		this.filteredWorld = { children: [] };
 		this.filterTimer   = null;

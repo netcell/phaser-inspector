@@ -34,8 +34,8 @@
     </div>
     <div class="button"
      ng-class="{
-		success  : treeCtrl.game.paused,
-		danger   : !treeCtrl.game.paused
+        success  : treeCtrl.game.paused,
+        danger   : !treeCtrl.game.paused
      }"
      tooltip-trigger tooltip-text="Play/Pause"
      ng-click="treeCtrl.game.paused = !treeCtrl.game.paused"
@@ -44,6 +44,12 @@
             'fa-play'  :  treeCtrl.game.paused,
             'fa-pause' :  !treeCtrl.game.paused
         }"></i>
+    </div>
+    <div class="button warn"
+     tooltip-trigger tooltip-text="Next Frame"
+     ng-click="treeCtrl.gameManager.nextFrame()"
+    >
+        <i class="fa fa-forward"></i>
     </div>
 </div>
 
