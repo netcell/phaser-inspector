@@ -15,6 +15,7 @@
      ng-class="{info : cache.visible, deactive : !cache.visible}"
      ng-click="detailCtrl.showHide()"
      ng-if="cache.alive || !cache.kill"
+     tooltip-trigger tooltip-text="Show/Hide"
     >
         <i class="fa"
          ng-class="{'fa-eye': cache.visible, 'fa-eye-slash': !cache.visible}"
@@ -22,6 +23,7 @@
     </div>
     <div class="button primary"
      ng-click="detailCtrl.deselect()"
+     tooltip-trigger tooltip-text="Deselect"
     >
         <i class="fa fa-ban"></i>
     </div>
@@ -31,19 +33,27 @@
         <div class="label pl1">Class</div>
         <div class="detail" ng-bind="cache.className"></div>
     </div>
-    <div class="row">
+    <div class="row"
+     tooltip-trigger tooltip-text="Number of direct children"
+    >
         <div class="label pl1">Children</div>
         <div class="detail" ng-bind="cache.noChildren"></div>
     </div>
-    <div class="row">
+    <div class="row"
+     tooltip-trigger tooltip-text="Number of alive direct children"
+    >
         <div class="label pl1">Alive</div>
         <div class="detail" ng-bind="cache.noAlive"></div>
     </div>
-    <div class="row">
+    <div class="row"
+     tooltip-trigger tooltip-text="Number of nested children"
+    >
         <div class="label pl1">Nested</div>
         <div class="detail" ng-bind="cache.noNested"></div>
     </div>
-    <div class="row">
+    <div class="row"
+     tooltip-trigger tooltip-text="Number of alive nested children, not sure if it is correct yet"
+    >
         <div class="label pl1">Nested alive</div>
         <div class="detail" ng-bind="cache.noNestedAlive"></div>
     </div>

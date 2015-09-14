@@ -159,12 +159,11 @@ export default class DisplayObject {
 	get parentSelected(){
 		return this.gameManager.$inspectorTreeSelected === this.obj.parent;
 	}
-	select(){
-		/**
-		 * If an object is selected,
-		 * it should also toggle the expansion
-		 */
+	expand(){
 		this.expanded = !this.expanded;
+		this.gameManager.$inspectorTreeSelected = this.obj;
+	}
+	select(){
 		this.gameManager.$inspectorTreeSelected = this.obj;
 	}
 }
