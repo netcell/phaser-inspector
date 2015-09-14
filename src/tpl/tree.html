@@ -6,6 +6,16 @@
 </div>
 
 <div class="tree-control">
+    <div class="button"
+     tooltip-trigger tooltip-text="Inspect Element"
+     ng-class="{
+        primary  : !treeCtrl.gameManager.screenInspecting,
+        deactive : treeCtrl.gameManager.screenInspecting
+     }"
+     ng-click="treeCtrl.gameManager.screenInspect()"
+    >
+        <i class="fa fa-search"></i>
+    </div>
     <div class="button info"
      tooltip-trigger tooltip-text="Collapse All"
      ng-click="treeCtrl.gameManager.collapseAll()"

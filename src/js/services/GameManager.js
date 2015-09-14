@@ -27,6 +27,64 @@ export default class GameManager {
 
 		this.$inspectorTreeSelected = null;
 	}
+	nextFrame(){
+		this.game.paused = false;
+		this.onUpdate.addOnce(() => this.game.paused = true)
+	}
+	screenInspect(){
+		var game = this.game;
+		if (this.screenInspecting) {
+			return this.stopScreenInspect();
+		}
+		var image = game.add.image(0, 0);
+			image.inputEnabled = true;
+			image.width  = game.width;
+			image.height = game.height;
+			image.name = 'Inspect Layer';
+		image.events.onInputDown.add(this.onScreenInspect, this);
+		this.onScreenInspectImage = image;
+		this.screenInspecting = true;
+	}
+	stopScreenInspect(){
+		this.onScreenInspectImage && this.onScreenInspectImage.destroy();
+		this.onScreenInspectImage = null;
+		this.screenInspecting = false;
+	}
+	onScreenInspect(){
+		var game    = this.game;
+		var world   = game.world;
+		var pointer = game.input.activePointer;
+		var obj = this.searchSpriteUnderPointer(world, pointer);
+		this.collapseAll();
+		obj && ( new DisplayObject(obj, this).expand() );
+	}
+	getObjectBounds(obj){
+		var bounds = obj.getBounds();
+		if (obj.children.length) {
+			var groupBounds = Phaser.Group.prototype.getBounds.call(obj);
+			bounds.x = min(bounds.x, groupBounds.x);
+			bounds.y = min(bounds.y, groupBounds.y);
+			bounds.width = max(bounds.width, groupBounds.width);
+			bounds.height = max(bounds.height, groupBounds.height);
+		}
+		return bounds;
+	}
+	searchSpriteUnderPointer(parent, pointer){
+		var children = parent.children;
+		for (var i = children.length - 1; i >= 0; i--) {
+			var child = children[i];
+			if (child.alive && child.visible && child !== this.onScreenInspectImage) {
+				var bounds = this.getObjectBounds(child);
+				if ( bounds.contains(pointer.worldX, pointer.worldY) ){
+					if (!child.children.length) return child;
+					else  {
+						var obj = this.searchSpriteUnderPointer(child, pointer);
+						return obj || child;
+					}
+				}
+			}
+		}
+	}
 	collapseAll(){
 		this.$inspectorTreeSelected = null;
 		this.collapse(this.game.world);
