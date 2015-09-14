@@ -1,5 +1,7 @@
 # Phaser Inspector Plugin
 
+**[UPDATE] Phaser Inspector Plugin now support RenderTexture on WebGL**
+
 **Phaser Inspector Plugin** allows you to inspect your (or someone else) [Phaser](http://phaser.io) game.
 
 ![Floating, resizable and minimizable](https://farm6.staticflickr.com/5619/21076450010_efa799bf08_o.png)![Intelligent Inspector with object tree, search and edit, state control and bounds drawing](https://farm1.staticflickr.com/730/21076450170_23796d65a4_o.png)
@@ -14,7 +16,7 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - Display objects **non-case-sensitive search** by name and class.
 - Display object **destroy/kill/hide**.
 - **Properties** inspection and editting.
-- **Texture display** for sprite/image (**Not** support RenterTexture with CORS or WebGL)
+- **Texture display** for sprite/image
 - **Bounds** drawing
 - **States** list and state change
 - **Floating**, **resizable** and **draggable** panel
@@ -26,8 +28,6 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - **Transparent/Clickthrough** panel
 - Sprite/Image **load Texture**
 - **Optimize** when displaying too many display objects on the tree
-- Support CORS for **RenderTexture display** for sprite/image
-- Support **RenderTexture display** on WebGL
 
 Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
 
