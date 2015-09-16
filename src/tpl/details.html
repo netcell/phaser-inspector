@@ -58,68 +58,36 @@
         <div class="detail" ng-bind="cache.noNestedAlive"></div>
     </div>
 </div>
-<div class="section">
-    <div class="row header">Position</div>
-    <div class="row">
-        <div class="label pl2">x</div>
-        <input class="detail f8 pl2" type="number" ng-model="cache.position.x"/>
-        <div class="label pl2">y</div>
-        <input class="detail f8 pl2" type="number" ng-model="cache.position.y"/>
-    </div>
-</div>
-<div class="section">
-    <div class="row header">World Position</div>
-    <div class="row">
-        <div class="label pl2">x</div>
-        <input class="detail f8" type="number" ng-model="cache.world.x"/>
-        <div class="label pl2">y</div>
-        <input class="detail f8" type="number" ng-model="cache.world.y"/>
-    </div>
-</div>
-<div class="section">
-    <div class="row header">Size</div>
-    <div class="row">
-        <div class="label f4 pl2">width</div>
-        <input class="detail f5" type="number" ng-model="cache.size.x"/>
-        <div class="label f5 pl2">height</div>
-        <input class="detail f5" type="number" ng-model="cache.size.y"/>
-    </div>
-</div>
-<div class="section" ng-if="cache.hasTargetSize">
-    <div class="row header">Target size</div>
-    <div class="row">
-        <div class="label f4 pl2">width</div>
-        <input class="detail f5" type="number" ng-model="cache.targetSize.x"/>
-        <div class="label f5 pl2">height</div>
-        <input class="detail f5" type="number" ng-model="cache.targetSize.y"/>
-    </div>
-</div>
-<div class="section">
-    <div class="row header">Bounds</div>
-    <div class="row">
-        <div class="label f4 pl2">width</div>
-        <input class="detail f5" type="number" ng-model="cache.bounds.x"/>
-        <div class="label f5 pl2">height</div>
-        <input class="detail f5" type="number" ng-model="cache.bounds.y"/>
-    </div>
-</div>
-<div class="section">
-    <div class="row header">Scale</div>
-    <div class="row">
-        <div class="label pl2">x</div>
-        <input class="detail f8" type="number" ng-model="cache.scale.x"/>
-        <div class="label pl2">y</div>
-        <input class="detail f8" type="number" ng-model="cache.scale.y"/>
-    </div>
-</div>
 
-<div class="section" ng-if="cache.img.url">
-    <div class="row header">Frame</div>
-    <div class="frame-img" ng-style="{
-        background            :'url('+cache.img.url+')',
-        width                 : cache.img.width+'px',
-        height                : cache.img.height+'px',
-        'background-position' : (-cache.img.x) + 'px ' + (-cache.img.y) + 'px',
-        transform             : 'scale(' + cache.img.scale + ')'
-    }"></div>
+<div class="section" ng-repeat="plugin in cache.plugins" ng-if="plugin.show">
+    <div class="row header" ng-bind="plugin.header"></div>
+    <div class="row" ng-if="plugin.fields.template" bind-html-unsafe="plugin.fields.template"></div>
+    <div class="row" ng-if="!plugin.fields.template">
+        <div ng-repeat-start="field in plugin.fields"
+         class="label"
+         ng-bind="field.label.text"
+         ng-style="{
+            'padding-left' : field.label.paddingLeft + 'px',
+            'flex' : field.label.flex
+         }">
+        </div>
+        <input
+         class="detail"
+         ng-if="field.detail.input"
+         type="{{field.detail.type || 'number'}}"
+         ng-model="field.detail.data"
+         ng-style="{
+            'padding-left' : field.detail.paddingLeft + 'px',
+            'flex' : field.detail.flex
+         }"/>
+        <div ng-repeat-end
+         class="detail"
+         ng-if="!field.detail.input"
+         ng-bind="field.detail.data"
+         ng-style="{
+            'padding-left' : field.detail.paddingLeft + 'px',
+            'flex' : field.detail.flex
+         }">
+        </div>
+    </div>
 </div>
