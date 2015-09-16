@@ -1,30 +1,20 @@
 var _             = require('lodash');
 var DisplayObject = require('../classes/DisplayObject');
-var Vector        = require('../classes/Vector');
+var DetailPlugin = require('../classes/DetailPlugin');
 
 class Cache {
-	constructor(){
-		this.position = new Vector('x','y');
-		this.world = new Vector('tx', 'ty');
-		this.size = new Vector('width', 'height');
-		this.targetSize = new Vector('targetWidth', 'targetHeight');
-		this.bounds = new Vector('width', 'height');
-		this.scale = new Vector('x', 'y');
+	constructor(gameManager){
+		var plugins = DetailPlugin.plugins;
+		this.plugins = [];
+		_.each(plugins, Plugin => this.plugins.push( new Plugin(gameManager) ));
 	}
-	update(obj){
-		this.position.update(obj.position);
-		this.world.update(obj.worldTransform);
-		this.size.update(obj);
-		obj.targetWidth && this.targetSize.update(obj);
-		var bounds = obj.getBounds();
-		this.bounds.update(bounds);
-		this.scale.update(obj.scale);
+	update(obj, wrapObj){
+		this.plugins.forEach(plugin => {
+			if (plugin.show) plugin.update(obj, wrapObj)
+		});
 	}
-	reset(){
-		this.position.reset();
-		this.world.reset();
-		this.size.reset();
-		this.scale.reset();
+	reset(obj, wrapObj){
+		this.plugins.forEach(plugin => plugin.reset(obj, wrapObj));
 	}
 }
 
@@ -33,13 +23,13 @@ export default class DetailCtrl {
 		this.game  = game;
 		this.world = game.world;
 		this.gameManager = gameManager;
-		$scope.cache = this.cache = new Cache();
+		$scope.cache = this.cache = new Cache(gameManager);
 		$scope.$watch(function () {
 			return gameManager.$inspectorTreeSelected;
 		}, () => {
 			this.realObj = gameManager.$inspectorTreeSelected || this.world;
 			this.obj     = new DisplayObject(this.realObj);
-			this.cache.reset();
+			this.cache.reset(this.realObj, this.obj);
 		});
 		onUpdate.add(() => this.updateInfo());
 	}
@@ -58,17 +48,13 @@ export default class DetailCtrl {
 		cache.visible = realObj.visible;
 		cache.kill    = realObj.kill;
 
-		cache.hasTargetSize = !_.isUndefined(realObj.targetWidth);
-
-		cache.img = obj.img;
-
 		var children      = realObj.children;
 		cache.noChildren    = children.length;
 		cache.noAlive       = children.filter(child => child.alive).length;
 		cache.noNested      = getChildrenOf(realObj);
 		cache.noNestedAlive = getAliveChildrenOf(realObj);
 
-		cache.update(realObj);
+		cache.update(realObj, obj);
 	}
 
 	deselect(){

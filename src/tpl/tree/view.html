@@ -1,8 +1,11 @@
 <div bindonce class="view" ng-class="{weak : !obj.alive}">
 	<div class="row" ng-class="{selected : viewCtrl.selected, parentSelected : viewCtrl.parentSelected}">
-		<div class="middle" bo-style="{'padding-left' : (viewCtrl.childLevel * 20) + 'px'}">
-			<div class="eye" ng-click="viewCtrl.toggle(); obj.visible = !obj.visible">
+		<div class="middle" bo-style="{'padding-left' : (5 + viewCtrl.childLevel * 20) + 'px'}">
+			<div class="eye" ng-click="obj.visible = !obj.visible">
 				<i class="fa" ng-class="{'fa-eye' : obj.visible, 'fa-eye-slash' : !obj.visible}"></i>
+			</div>
+			<div class="eye" ng-click="obj.cacheAsBitmap = !obj.cacheAsBitmap">
+				<i class="fa" ng-class="{'fa-lock' : obj.cacheAsBitmap, 'fa-unlock-alt' : !obj.cacheAsBitmap}"></i>
 			</div>
 			<div>
 				<div class="toggle" ng-click="viewCtrl.expand()">
