@@ -7,14 +7,20 @@ export default class FrameRenderPlugin extends DetailPlugin {
 			gameManager : gameManager,
 			header      : 'Frame',
 			fields      : {
-				template : "<div class=\"frame-img\" ng-style=\"{\
+				template : "<div ng-style=\"{\
+								position : 'relative',\
+								width : '100%',\
+								height : (plugin.img.height * plugin.img.scale) + 'px'\
+							}\">\
+							<div class=\"frame-img\" ng-style=\"{\
 								'padding-left'        : 0,\
+								'position'            : 'absolute',\
 								background            :'url('+plugin.img.url+')',\
 								width                 : plugin.img.width+'px',\
 								height                : plugin.img.height+'px',\
 								'background-position' : (-plugin.img.x) + 'px ' + (-plugin.img.y) + 'px',\
 								transform             : 'scale(' + plugin.img.scale + ')'\
-							}\"></div>"
+							}\"></div></div>"
 			}
 		});
 	}
