@@ -62,7 +62,7 @@ function bundle(debug){
 	bundler.transform(stringify({ extensions: ['.html'] }));
 	bundler.transform(cssify);
 	bundler.transform( babelify.configure({ ignore : 'node_modules' }) );
-	bundler.transform('stripify');
+	(!debug) && bundler.transform('stripify');
 	debug && bundler.on('update', function(){
 		rebundle(bundler, debug);
 	});
