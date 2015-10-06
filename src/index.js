@@ -36,8 +36,6 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		DetailPlugin.add(ScalePlugin);
 		DetailPlugin.add(AnchorPlugin);
 		DetailPlugin.add(FrameRenderPlugin);
-		/** Avoid multiple creation */
-		if ($('.phaser-inspector-panel').length) return;
 		/** @type {Phaser.Signal} Dispatched on game update */
 		this.onUpdate = new Phaser.Signal();
 		/**
@@ -45,12 +43,15 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		 * Import angular pior to this behave badly
 		 * TODO: Figure out why
 		 */
+		var existingWindowDotAngular = window.angular;
 		window.angular = require('angular');
 		require('../node_modules/pg-ng-tooltip/dest/js/pg-ng-tooltip.js');
 		require('angular-bindonce');
 		require('ngstorage');
 		/** Bootstrap app */
-		$('html').attr('data-ng-app', 'app');
+		if ($('#phaser-inspector-app').length) {
+			$('#phaser-inspector-app').remove();
+		}
 		$('body').append(appTpl);
 		/** Angular app definition */
 		require('./js/app')
@@ -65,6 +66,11 @@ Phaser.Plugin.Inspector = class Inspector extends Phaser.Plugin {
 		.directive('phaserInspectorDetails', phaserInspectorDetails)
 		.directive('view', view)
 		.directive('viewCollection', viewCollection);
+		$(document).ready(function() {
+		    angular.bootstrap(document.getElementById('phaser-inspector-app'), ['phaser-inspector']);
+		    // restore the old angular version
+		    window.angular = existingWindowDotAngular;
+		  });
 	}
 	render() {
 		this.onUpdate && this.onUpdate.dispatch();

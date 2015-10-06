@@ -59125,8 +59125,6 @@ Phaser.Plugin.Inspector = (function (_Phaser$Plugin) {
 		DetailPlugin.add(ScalePlugin);
 		DetailPlugin.add(AnchorPlugin);
 		DetailPlugin.add(FrameRenderPlugin);
-		/** Avoid multiple creation */
-		if ($('.phaser-inspector-panel').length) return;
 		/** @type {Phaser.Signal} Dispatched on game update */
 		this.onUpdate = new Phaser.Signal();
 		/**
@@ -59134,12 +59132,15 @@ Phaser.Plugin.Inspector = (function (_Phaser$Plugin) {
    * Import angular pior to this behave badly
    * TODO: Figure out why
    */
+		var existingWindowDotAngular = window.angular;
 		window.angular = require('angular');
 		require('../node_modules/pg-ng-tooltip/dest/js/pg-ng-tooltip.js');
 		require('angular-bindonce');
 		require('ngstorage');
 		/** Bootstrap app */
-		$('html').attr('data-ng-app', 'app');
+		if ($('#phaser-inspector-app').length) {
+			$('#phaser-inspector-app').remove();
+		}
 		$('body').append(appTpl);
 		/** Angular app definition */
 		require('./js/app').factory('game', function () {
@@ -59149,6 +59150,11 @@ Phaser.Plugin.Inspector = (function (_Phaser$Plugin) {
 		}).controller('TreeCtrl', TreeCtrl).controller('ViewCtrl', ViewCtrl).controller('DetailCtrl', DetailCtrl).factory('gameManager', function ($timeout) {
 			return new GameManager($timeout, _this.game, _this.onUpdate);
 		}).directive('phaserInspectorPanel', interaction).directive('phaserInspectorTree', phaserInspectorTree).directive('phaserInspectorDetails', phaserInspectorDetails).directive('view', view).directive('viewCollection', viewCollection);
+		$(document).ready(function () {
+			angular.bootstrap(document.getElementById('phaser-inspector-app'), ['phaser-inspector']);
+			// restore the old angular version
+			window.angular = existingWindowDotAngular;
+		});
 	}
 
 	_createClass(Inspector, [{
@@ -59169,7 +59175,7 @@ Phaser.Plugin.Inspector.DetailPlugin = require('./js/classes/DetailPlugin');
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
-exports['default'] = angular.module('app', ['ngStorage', 'pasvaz.bindonce', 'pg-ng-tooltip']).directive('bindHtmlUnsafe', function ($parse, $compile) {
+exports['default'] = angular.module('phaser-inspector', ['ngStorage', 'pasvaz.bindonce', 'pg-ng-tooltip']).directive('bindHtmlUnsafe', function ($parse, $compile) {
     return function ($scope, $element, $attrs) {
         var compile = function compile(newHTML) {
             newHTML = $compile(newHTML)($scope);
@@ -59183,7 +59189,21 @@ exports['default'] = angular.module('app', ['ngStorage', 'pasvaz.bindonce', 'pg-
             compile(newHTML);
         });
     };
+}).directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        ;
+        element.bind('keydown keypress', function (event) {
+            ;
+            if (event.which === 13) {
+                scope.$apply(function () {
+                    scope.$eval(attrs.ngEnter || attrs.ngClick, { $event: event });
+                });
+                event.preventDefault();
+            }
+        });
+    };
 });
+;
 module.exports = exports['default'];
 
 },{}],22:[function(require,module,exports){
@@ -59306,7 +59326,6 @@ var DisplayObject = (function () {
    * prop key name the obj attached to
    */
 		value: function find(parent, obj) {
-			;
 			if (parent) {
 				var keys = Object.keys(parent);
 				var foundKey = null;
@@ -59775,7 +59794,7 @@ var TreeCtrl = (function () {
 
 		this.registerStateScrollUpdate();
 		this.registerDrawBounds();
-		this.registerFilter();
+		// this.registerFilter();
 	}
 
 	_createClass(TreeCtrl, [{
@@ -59821,7 +59840,7 @@ var TreeCtrl = (function () {
 					if (!gameManager.$render) return;
 					var obj = gameManager.$inspectorTreeSelected;
 					if (!obj || !obj.getBounds) return;
-					var bounds = obj.getBounds();
+					var bounds = obj.getBounds().offset(obj.worldTransform.tx, obj.worldTransform.ty);
 					if (!bounds) return;
 					debug.geom(bounds, 'rgba(0, 191, 0, ' + alpha + ')');
 					alpha += delta * direction;
@@ -60647,7 +60666,8 @@ var GameManager = (function () {
 		Object.defineProperty(window, '$inspectorTreeSelected', {
 			get: function get() {
 				return self.$inspectorTreeSelected;
-			}
+			},
+			configurable: true
 		});
 
 		this.$inspectorTreeSelected = null;
@@ -60792,13 +60812,13 @@ exports['default'] = GameManager;
 module.exports = exports['default'];
 
 },{"../classes/DisplayObject":23,"lodash":15}],42:[function(require,module,exports){
-module.exports = "<div class=\"phaser-inspector-panel\" ng-init=\"display={}\" ng-class=\"{collapsed: display.hide}\">\n\t<div class=\"grabber\">\n\t\t<div class=\"close\" ng-click=\"display.hide = !display.hide\">\n\t\t\t<i class=\"fa\" ng-class=\"{'fa-bars': display.hide, 'fa-times-circle':!display.hide}\"></i>\n\t\t</div>\n\t</div>\n\n\t<div id=\"tree\" phaser-inspector-tree class=\"panel\" ng-if=\"!display.hide\"></div>\n\n\t<div id=\"details\" phaser-inspector-details class=\"panel\" ng-if=\"!display.hide\"></div>\n</div>\n<div class=\"tooltip\" pg-ng-tooltip></div>";
+module.exports = "<div id=\"phaser-inspector-app\">\n<div class=\"phaser-inspector-panel\" ng-init=\"display={}\" ng-class=\"{collapsed: display.hide}\">\n\t<div class=\"grabber\">\n\t\t<div class=\"close\" ng-click=\"display.hide = !display.hide\">\n\t\t\t<i class=\"fa\" ng-class=\"{'fa-bars': display.hide, 'fa-times-circle':!display.hide}\"></i>\n\t\t</div>\n\t</div>\n\n\t<div id=\"tree\" phaser-inspector-tree class=\"panel\" ng-if=\"!display.hide\"></div>\n\n\t<div id=\"details\" phaser-inspector-details class=\"panel\" ng-if=\"!display.hide\"></div>\n</div>\n<div class=\"tooltip\" pg-ng-tooltip></div></div>";
 
 },{}],43:[function(require,module,exports){
 module.exports = "<div id=\"header\" ng-if=\"!detailCtrl.isWorld\">\n    <div class=\"button danger\"\n     ng-click=\"detailCtrl.destroy()\"\n    >\n        Destroy\n    </div>\n    <div class=\"button\"\n     ng-class=\"{warn: cache.alive, success: !cache.alive}\"\n     ng-click=\"detailCtrl.killRevive()\"\n     ng-if=\"cache.kill\"\n    >\n        {{ cache.alive ? 'Kill' : 'Revive' }}\n    </div>\n    <div class=\"button\"\n     ng-class=\"{info : cache.visible, deactive : !cache.visible}\"\n     ng-click=\"detailCtrl.showHide()\"\n     ng-if=\"cache.alive || !cache.kill\"\n     tooltip-trigger tooltip-text=\"Show/Hide\"\n    >\n        <i class=\"fa\"\n         ng-class=\"{'fa-eye': cache.visible, 'fa-eye-slash': !cache.visible}\"\n        ></i>\n    </div>\n    <div class=\"button primary\"\n     ng-click=\"detailCtrl.deselect()\"\n     tooltip-trigger tooltip-text=\"Deselect\"\n    >\n        <i class=\"fa fa-ban\"></i>\n    </div>\n</div>\n<div class=\"info\">\n    <div class=\"row\">\n        <div class=\"label pl1\">Class</div>\n        <div class=\"detail\" ng-bind=\"cache.className\"></div>\n    </div>\n    <div class=\"row\"\n     tooltip-trigger tooltip-text=\"Number of direct children\"\n    >\n        <div class=\"label pl1\">Children</div>\n        <div class=\"detail\" ng-bind=\"cache.noChildren\"></div>\n    </div>\n    <div class=\"row\"\n     tooltip-trigger tooltip-text=\"Number of alive direct children\"\n    >\n        <div class=\"label pl1\">Alive</div>\n        <div class=\"detail\" ng-bind=\"cache.noAlive\"></div>\n    </div>\n    <div class=\"row\"\n     tooltip-trigger tooltip-text=\"Number of nested children\"\n    >\n        <div class=\"label pl1\">Nested</div>\n        <div class=\"detail\" ng-bind=\"cache.noNested\"></div>\n    </div>\n    <div class=\"row\"\n     tooltip-trigger tooltip-text=\"Number of alive nested children, not sure if it is correct yet\"\n    >\n        <div class=\"label pl1\">Nested alive</div>\n        <div class=\"detail\" ng-bind=\"cache.noNestedAlive\"></div>\n    </div>\n</div>\n\n<div class=\"section\" ng-repeat=\"plugin in cache.plugins\" ng-if=\"plugin.show\">\n    <div class=\"row header\" ng-bind=\"plugin.header\"></div>\n    <div class=\"row\" ng-if=\"plugin.fields.template\" bind-html-unsafe=\"plugin.fields.template\"></div>\n    <div class=\"row\" ng-if=\"!plugin.fields.template\">\n        <div ng-repeat-start=\"field in plugin.fields\"\n         class=\"label\"\n         ng-bind=\"field.label.text\"\n         ng-style=\"{\n            'padding-left' : field.label.paddingLeft + 'px',\n            'flex' : field.label.flex\n         }\">\n        </div>\n        <input\n         class=\"detail\"\n         ng-if=\"field.detail.input\"\n         type=\"{{field.detail.type || 'number'}}\"\n         ng-model=\"field.detail.data\"\n         ng-style=\"{\n            'padding-left' : field.detail.paddingLeft + 'px',\n            'flex' : field.detail.flex\n         }\"/>\n        <div ng-repeat-end\n         class=\"detail\"\n         ng-if=\"!field.detail.input\"\n         ng-bind=\"field.detail.data\"\n         ng-style=\"{\n            'padding-left' : field.detail.paddingLeft + 'px',\n            'flex' : field.detail.flex\n         }\">\n        </div>\n    </div>\n</div>";
 
 },{}],44:[function(require,module,exports){
-module.exports = "<div class=\"states\">\n\t<div>\n\t\t<div class=\"state\" ng-repeat=\"(state, stateObj) in treeCtrl.game.state.states\" ng-bind=\"state\" ng-class=\"{selected : state === treeCtrl.game.state.current}\" ng-click=\"treeCtrl.goToState(state)\">\n\t\t</div>\n\t</div>\n</div>\n\n<div class=\"tree-control\">\n    <div class=\"button\"\n     tooltip-trigger tooltip-text=\"Inspect Element\"\n     ng-class=\"{\n        primary  : !treeCtrl.gameManager.screenInspecting,\n        deactive : treeCtrl.gameManager.screenInspecting\n     }\"\n     ng-click=\"treeCtrl.gameManager.screenInspect()\"\n    >\n        <i class=\"fa fa-search\"></i>\n    </div>\n    <div class=\"button info\"\n     tooltip-trigger tooltip-text=\"Collapse All\"\n     ng-click=\"treeCtrl.gameManager.collapseAll()\"\n    >\n        <i class=\"fa fa-compress\"></i>\n    </div>\n    <div class=\"button\"\n     ng-class=\"{\n        warn     : treeCtrl.gameManager.$render,\n        deactive : !treeCtrl.gameManager.$render\n     }\"\n     tooltip-trigger tooltip-text=\"Toggle Box Render\"\n     ng-click=\"treeCtrl.gameManager.$render = !treeCtrl.gameManager.$render\"\n    >\n        <i class=\"fa fa-paint-brush\"></i>\n    </div>\n    <div class=\"button\"\n     ng-class=\"{\n        success  : treeCtrl.game.paused,\n        danger   : !treeCtrl.game.paused\n     }\"\n     tooltip-trigger tooltip-text=\"Play/Pause\"\n     ng-click=\"treeCtrl.game.paused = !treeCtrl.game.paused\"\n    >\n        <i class=\"fa\" ng-class=\"{\n            'fa-play'  :  treeCtrl.game.paused,\n            'fa-pause' :  !treeCtrl.game.paused\n        }\"></i>\n    </div>\n    <div class=\"button warn\"\n     tooltip-trigger tooltip-text=\"Next Frame\"\n     ng-click=\"treeCtrl.gameManager.nextFrame()\"\n    >\n        <i class=\"fa fa-forward\"></i>\n    </div>\n</div>\n\n<div class=\"scene\">\n\t<view-collection ng-if=\"!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()\" parent=\"treeCtrl.game.world.children\" filtered=\"false\"></view-collection>\n\t<view-collection ng-if=\"treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()\" parent=\"treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren\" filtered=\"true\"></view-collection>\n</div>\n<input class=\"search\" type=\"text\" ng-model=\"treeCtrl.search\" placeholder=\"Search Display Object\">";
+module.exports = "<div class=\"states\">\n\t<div>\n\t\t<div class=\"state\" ng-repeat=\"(state, stateObj) in treeCtrl.game.state.states\" ng-bind=\"state\" ng-class=\"{selected : state === treeCtrl.game.state.current}\" ng-click=\"treeCtrl.goToState(state)\">\n\t\t</div>\n\t</div>\n</div>\n\n<div class=\"tree-control\">\n    <div class=\"button\"\n     tooltip-trigger tooltip-text=\"Inspect Element\"\n     ng-class=\"{\n        primary  : !treeCtrl.gameManager.screenInspecting,\n        deactive : treeCtrl.gameManager.screenInspecting\n     }\"\n     ng-click=\"treeCtrl.gameManager.screenInspect()\"\n    >\n        <i class=\"fa fa-search\"></i>\n    </div>\n    <div class=\"button info\"\n     tooltip-trigger tooltip-text=\"Collapse All\"\n     ng-click=\"treeCtrl.gameManager.collapseAll()\"\n    >\n        <i class=\"fa fa-compress\"></i>\n    </div>\n    <div class=\"button\"\n     ng-class=\"{\n        warn     : treeCtrl.gameManager.$render,\n        deactive : !treeCtrl.gameManager.$render\n     }\"\n     tooltip-trigger tooltip-text=\"Toggle Box Render\"\n     ng-click=\"treeCtrl.gameManager.$render = !treeCtrl.gameManager.$render\"\n    >\n        <i class=\"fa fa-paint-brush\"></i>\n    </div>\n    <div class=\"button\"\n     ng-class=\"{\n        success  : treeCtrl.game.paused,\n        danger   : !treeCtrl.game.paused\n     }\"\n     tooltip-trigger tooltip-text=\"Play/Pause\"\n     ng-click=\"treeCtrl.game.paused = !treeCtrl.game.paused\"\n    >\n        <i class=\"fa\" ng-class=\"{\n            'fa-play'  :  treeCtrl.game.paused,\n            'fa-pause' :  !treeCtrl.game.paused\n        }\"></i>\n    </div>\n    <div class=\"button warn\"\n     tooltip-trigger tooltip-text=\"Next Frame\"\n     ng-click=\"treeCtrl.gameManager.nextFrame()\"\n    >\n        <i class=\"fa fa-forward\"></i>\n    </div>\n</div>\n\n<div class=\"scene\">\n\t<view-collection ng-if=\"!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()\" parent=\"treeCtrl.game.world.children\" filtered=\"false\"></view-collection>\n\t<view-collection ng-if=\"treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()\" parent=\"treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren\" filtered=\"true\"></view-collection>\n</div>\n<input class=\"search\" type=\"text\" ng-enter=\"treeCtrl.gameManager.filter(treeCtrl.search)\" ng-model=\"treeCtrl.search\" placeholder=\"Search Display Object\">";
 
 },{}],45:[function(require,module,exports){
 module.exports = "<div bindonce class=\"view\" ng-class=\"{weak : !obj.alive}\">\n\t<div class=\"row\" ng-class=\"{selected : viewCtrl.selected, parentSelected : viewCtrl.parentSelected}\">\n\t\t<div class=\"middle\" bo-style=\"{'padding-left' : (5 + viewCtrl.childLevel * 20) + 'px'}\">\n\t\t\t<div class=\"eye\" ng-click=\"obj.visible = !obj.visible\">\n\t\t\t\t<i class=\"fa\" ng-class=\"{'fa-eye' : obj.visible, 'fa-eye-slash' : !obj.visible}\"></i>\n\t\t\t</div>\n\t\t\t<div class=\"eye\" ng-click=\"obj.cacheAsBitmap = !obj.cacheAsBitmap\">\n\t\t\t\t<i class=\"fa\" ng-class=\"{'fa-lock' : obj.cacheAsBitmap, 'fa-unlock-alt' : !obj.cacheAsBitmap}\"></i>\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<div class=\"toggle\" ng-click=\"viewCtrl.expand()\">\n\t\t\t\t\t<i class=\"fa fa-circle\" ng-if=\"!viewCtrl.hasChildren\"></i>\n\t\t\t\t\t<i class=\"fa\" ng-if=\"viewCtrl.hasChildren\" ng-class=\"{'fa-caret-down' : viewCtrl.expanded, 'fa-caret-right' : !viewCtrl.expanded}\"></i>\n\t\t\t\t</div>\n\t\t\t\t<div ng-click=\"viewCtrl.select()\">\n\t\t\t\t\t<div class=\"name\" bo-bind=\"viewCtrl.name\"></div>\n\t\t\t\t\t<div class=\"type\" bo-bind=\"viewCtrl.type\"></div>\n\t\t\t\t\t<div class=\"children\" ng-bind=\"viewCtrl.numberOfChildren\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";

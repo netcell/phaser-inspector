@@ -30,7 +30,6 @@ export default class DisplayObject {
 	 * prop key name the obj attached to
 	 */
 	find(parent, obj){
-		console.log(parent)
 		if (parent) {
 			var keys = Object.keys(parent);
 			var foundKey = null;

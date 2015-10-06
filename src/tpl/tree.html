@@ -57,4 +57,4 @@
 	<view-collection ng-if="!treeCtrl.search || treeCtrl.search.length === 0 || !treeCtrl.search.trim()" parent="treeCtrl.game.world.children" filtered="false"></view-collection>
 	<view-collection ng-if="treeCtrl.search && treeCtrl.search.length && treeCtrl.search.trim()" parent="treeCtrl.gameManager.filteredWorld.$inspectorFilteredChildren" filtered="true"></view-collection>
 </div>
-<input class="search" type="text" ng-model="treeCtrl.search" placeholder="Search Display Object">
+<input class="search" type="text" ng-enter="treeCtrl.gameManager.filter(treeCtrl.search)" ng-model="treeCtrl.search" placeholder="Search Display Object">

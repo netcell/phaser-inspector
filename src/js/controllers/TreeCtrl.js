@@ -9,7 +9,7 @@ export default class TreeCtrl {
 
 		this.registerStateScrollUpdate();
 		this.registerDrawBounds();
-		this.registerFilter();
+		// this.registerFilter();
 	}
 	registerStateScrollUpdate(){
 		var parent = $('.states');
@@ -48,7 +48,7 @@ export default class TreeCtrl {
 				if (!gameManager.$render) return;
 				var obj = gameManager.$inspectorTreeSelected;
 				if (!obj || !obj.getBounds) return;
-				var bounds = obj.getBounds();
+				var bounds = obj.getBounds().offset(obj.worldTransform.tx, obj.worldTransform.ty) ;
 				if (!bounds) return;
 				debug.geom(bounds, `rgba(0, 191, 0, ${alpha})`);
 				alpha += delta * direction;

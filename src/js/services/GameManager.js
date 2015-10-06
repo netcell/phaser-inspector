@@ -26,7 +26,8 @@ export default class GameManager {
 		Object.defineProperty(window, '$inspectorTreeSelected', {
 			get: function(){
 				return self.$inspectorTreeSelected;
-			}
+			},
+			configurable: true
 		})
 
 		this.$inspectorTreeSelected = null;
