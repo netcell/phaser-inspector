@@ -1,6 +1,8 @@
 # Phaser Inspector Plugin
 
-**[UPDATE] Phaser Inspector Plugin now support RenderTexture on WebGL**
+**[UPDATE] Phaser Inspector Plugin would be redesign and restructure soon to reborn as a better plugin.**
+
+**[UPDATE] Phaser Inspector Plugin now support RenderTexture on WebGL.**
 
 **Phaser Inspector Plugin** allows you to inspect your (or someone else) [Phaser](http://phaser.io) game.
 
@@ -29,7 +31,7 @@ The plugin is written using [Angular.js](https://angularjs.org/) and ES6, compil
 - Sprite/Image **load Texture**
 - **Optimize** when displaying too many display objects on the tree
 
-Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://anhnt.ninja)!
+Feel free to follow me on twitter [@netcell](https://twitter.com/netcell) and check out [my blog](http://netcell.github.io)!
 
 ## Demo
 
