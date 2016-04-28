@@ -20,9 +20,11 @@
 
     <section class="main-content">
       <h1>
-<a id="phaser-inspector-plugin" class="anchor" href="#phaser-inspector-plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>Phaser Inspector Plugin</h1>
+<a id="phaser-inspector-plugin" class="anchor" href="#phaser-inspector-plugin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Phaser Inspector Plugin</h1>
 
-<p><strong>[UPDATE] Phaser Inspector Plugin now support RenderTexture on WebGL</strong></p>
+<p><strong>[UPDATE] Phaser Inspector Plugin would be redesign and restructure soon to reborn as a better plugin.</strong></p>
+
+<p><strong>[UPDATE] Phaser Inspector Plugin now support RenderTexture on WebGL.</strong></p>
 
 <p><strong>Phaser Inspector Plugin</strong> allows you to inspect your (or someone else) <a href="http://phaser.io">Phaser</a> game.</p>
 
@@ -68,15 +70,15 @@
 <strong>Optimize</strong> when displaying too many display objects on the tree</li>
 </ul>
 
-<p>Feel free to follow me on twitter <a href="https://twitter.com/netcell">@netcell</a> and check out <a href="http://anhnt.ninja">my blog</a>!</p>
+<p>Feel free to follow me on twitter <a href="https://twitter.com/netcell">@netcell</a> and check out <a href="http://netcell.github.io">my blog</a>!</p>
 
 <h2>
-<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo</h2>
 
 <p>Check the <code>example</code> folder (please run <code>bower install</code> before that, and serve the folder on a server/localhost) or try that example rightaway on <a href="http://codepen.io/netcell/full/gapZWG/">this codepen</a>.</p>
 
 <h2>
-<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Download</h2>
 
 <p>The source is available for download from <a href="https://github.com/netcell/phaser-inspector/releases">latest release</a> or by cloning the repository or download the files in <code>build</code> folder. Alternatively, you can install via:</p>
 
@@ -85,27 +87,27 @@
 </ul>
 
 <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
 
 <p><strong>NOTE:</strong> I have only tested this plugin on Google Chrome so I am not sure how this would perform on other browsers. Also since this plugin is for debugging your game, you should not expect to use it on your mobile devices, meaning remove it (or conditionally not loading it) when deploying to mobile devices.</p>
 
 <p>Simply download the <code>phaser-inspector.js</code> or <code>phaser-inspector.min.js</code> script from <a href="https://github.com/netcell/phaser-inspector/releases">latest release</a> and include it on your page after including Phaser:</p>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>phaser.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>phaser.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
 &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>phaser-inspector.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <p>In the <code>create</code> method in your boot state:</p>
 
-<div class="highlight highlight-javascript"><pre>game.<span class="pl-c1">plugins</span>.<span class="pl-c1">add</span>(Phaser.<span class="pl-c1">Plugin</span>.Inspector);</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">game</span>.<span class="pl-c1">plugins</span>.<span class="pl-c1">add</span>(<span class="pl-smi">Phaser</span>.<span class="pl-smi">Plugin</span>.<span class="pl-smi">Inspector</span>);</pre></div>
 
 <p>Alternatively, when running a game in the browser, you can inject the plugin in the developer console as follow:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> script <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">createElement</span>(<span class="pl-s"><span class="pl-pds">'</span>script<span class="pl-pds">'</span></span>); script.src <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>http://netcell.github.io/phaser-inspector/build/phaser-inspector.js<span class="pl-pds">"</span></span>; <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">'</span>head<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>].<span class="pl-c1">appendChild</span>(script); <span class="pl-k">function</span> <span class="pl-en">phaserInspectorInject</span>(){ <span class="pl-k">if</span> (Phaser.<span class="pl-c1">Plugin</span>.Inspector) Phaser.GAMES[<span class="pl-c1">0</span>].<span class="pl-c1">plugins</span>.<span class="pl-c1">add</span>(Phaser.<span class="pl-c1">Plugin</span>.Inspector); <span class="pl-k">else</span> <span class="pl-c1">setTimeout</span>(phaserInspectorInject); } <span class="pl-c1">setTimeout</span>(phaserInspectorInject);</pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> script <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">createElement</span>(<span class="pl-s"><span class="pl-pds">'</span>script<span class="pl-pds">'</span></span>); <span class="pl-smi">script</span>.<span class="pl-smi">src</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>http://netcell.github.io/phaser-inspector/build/phaser-inspector.js<span class="pl-pds">"</span></span>; <span class="pl-c1">document</span>.<span class="pl-c1">getElementsByTagName</span>(<span class="pl-s"><span class="pl-pds">'</span>head<span class="pl-pds">'</span></span>)[<span class="pl-c1">0</span>].<span class="pl-c1">appendChild</span>(script); <span class="pl-k">function</span> <span class="pl-en">phaserInspectorInject</span>(){ <span class="pl-k">if</span> (<span class="pl-smi">Phaser</span>.<span class="pl-smi">Plugin</span>.<span class="pl-smi">Inspector</span>) <span class="pl-smi">Phaser</span>.<span class="pl-c1">GAMES</span>[<span class="pl-c1">0</span>].<span class="pl-c1">plugins</span>.<span class="pl-c1">add</span>(<span class="pl-smi">Phaser</span>.<span class="pl-smi">Plugin</span>.<span class="pl-smi">Inspector</span>); <span class="pl-k">else</span> <span class="pl-c1">setTimeout</span>(phaserInspectorInject); } <span class="pl-c1">setTimeout</span>(phaserInspectorInject);</pre></div>
 
 <p>Check the example in <code>example</code> folder to see it in action :)</p>
 
 <h3>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h3>
 
 <p>This content is released under the (<a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a>) MIT License.</p>
 
